@@ -202,9 +202,11 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
 
   <nav class="cats" aria-label="Category">
     <button class="chip" data-cat="daily" aria-pressed="true">Today’s five</button>
+    <button class="chip" data-cat="famous" aria-pressed="false">Famous 50</button>
     <button class="chip" data-cat="renaissance" aria-pressed="false">Renaissance</button>
     <button class="chip" data-cat="impressionism" aria-pressed="false">Impressionism</button>
     <button class="chip" data-cat="baroque" aria-pressed="false">Baroque</button>
+    <button class="chip" data-cat="postimpressionism" aria-pressed="false">Post-Impressionism</button>
     <button class="chip" data-cat="all" aria-pressed="false">Everything</button>
     <label class="toggle" for="hard"><input type="checkbox" id="hard"> Hard mode: grayscale until the 4th view</label>
   </nav>
@@ -259,7 +261,8 @@ const PAINTINGS = [
 "medium": "Oil on panel",
 "museum": "National Gallery of Art, Washington",
 "cats": [
-"renaissance"
+"renaissance",
+"famous"
 ],
 "fact": "The only painting by Leonardo in the Americas. On the back is a juniper sprig, ginepro in Italian, a pun on her name, with the motto “Beauty adorns virtue.”",
 "alias": [
@@ -725,7 +728,8 @@ const PAINTINGS = [
 "life": "French, 1841–1919",
 "date": "1875",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "The Restaurant Fournaise, on an island in the Seine, was a favorite rowers’ hangout. Renoir later set his famous Luncheon of the Boating Party there.",
 "alias": [
@@ -826,7 +830,8 @@ const PAINTINGS = [
 "life": "French, 1859–1891",
 "date": "1884–86",
 "cats": [
-"impressionism"
+"postimpressionism",
+"famous"
 ],
 "fact": "Seurat built the whole picture from tiny dots of unmixed color, a technique called pointillism. It took him about two years.",
 "alias": [
@@ -912,7 +917,8 @@ const PAINTINGS = [
 "life": "French, 1840–1926",
 "date": "1906",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "By 1906 Monet had dropped the bridge and the shoreline. The surface of the pond fills the whole canvas.",
 "alias": [
@@ -933,7 +939,8 @@ const PAINTINGS = [
 "life": "French, 1840–1926",
 "date": "1877",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "One of about a dozen paintings of the Saint-Lazare station. Legend says Monet had trains held so the station would fill with steam.",
 "alias": [
@@ -968,7 +975,8 @@ const PAINTINGS = [
 "life": "French, 1840–1926",
 "date": "1900–01",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "Monet painted Parliament from a terrace of St Thomas’ Hospital across the Thames, often as the sun set behind it.",
 "alias": [
@@ -1019,7 +1027,8 @@ const PAINTINGS = [
 "life": "French, 1834–1917",
 "date": "1879–86",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "Degas made a whole series of Paris hat-shop scenes. Here the hats get more attention than the woman.",
 "alias": [
@@ -1136,7 +1145,8 @@ const PAINTINGS = [
 "life": "French, 1841–1919",
 "date": "1881",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "Painted on the terrace of the Restaurant Fournaise at Chatou. The two models weren’t actually sisters.",
 "alias": [
@@ -1275,7 +1285,8 @@ const PAINTINGS = [
 "life": "French, 1848–1894",
 "date": "1877",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "It shows the brand-new boulevards of Baron Haussmann’s Paris. Caillebotte was wealthy and helped pay for the Impressionist exhibitions.",
 "alias": [
@@ -1294,7 +1305,7 @@ const PAINTINGS = [
 "life": "Dutch, 1853–1890",
 "date": "1887",
 "cats": [
-"impressionism"
+"postimpressionism"
 ],
 "fact": "Painted during Van Gogh’s two years in Paris, when the Impressionists brightened his palette.",
 "alias": [
@@ -1390,7 +1401,8 @@ const PAINTINGS = [
 "life": "French, 1840–1926",
 "date": "1890–91",
 "cats": [
-"impressionism"
+"impressionism",
+"famous"
 ],
 "fact": "When Monet showed the wheat stacks in Paris in 1891, the series was a great success and established his reputation.",
 "alias": [
@@ -1858,7 +1870,8 @@ const PAINTINGS = [
 "medium": "Oil on panel",
 "museum": "The Art Institute of Chicago",
 "cats": [
-"baroque"
+"baroque",
+"famous"
 ],
 "fact": "Rembrandt painted this in his mid-twenties, around the time he moved from Leiden to Amsterdam.",
 "alias": [
@@ -1933,6 +1946,753 @@ const PAINTINGS = [
 "salome with the head of john the baptist"
 ],
 "img": "7eaf"
+},
+{
+"title": "The Bedroom",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1889",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Van Gogh painted his bedroom in the Yellow House in Arles three times. This is the second version, made while he was in the hospital at Saint-Rémy.",
+"alias": [
+"bedroom in arles",
+"van gogh's bedroom",
+"the bedroom at arles",
+"bedroom"
+],
+"img": "b389"
+},
+{
+"title": "Self-Portrait (Van Gogh)",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1887",
+"medium": "Oil on artist’s board",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Painted in Paris, where Van Gogh met the Neo-Impressionists. The short dabs of color around his head show what he learned from Seurat.",
+"alias": [
+"self-portrait",
+"self portrait",
+"van gogh self-portrait",
+"van gogh self portrait"
+],
+"img": "3fae"
+},
+{
+"title": "Madame Roulin Rocking the Cradle (La berceuse)",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1889",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Augustine Roulin holds a rope that rocks her baby’s cradle, just out of sight. Van Gogh made five versions of this picture.",
+"alias": [
+"la berceuse",
+"madame roulin",
+"the lullaby",
+"woman rocking a cradle"
+],
+"img": "05b6"
+},
+{
+"title": "Terrace and Observation Deck at the Moulin de Blute-Fin, Montmartre",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1887",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Visitors paid to climb this old windmill on the hill of Montmartre for a view over Paris.",
+"alias": [
+"moulin de blute-fin",
+"terrace and observation deck",
+"observation deck montmartre"
+],
+"img": "d742"
+},
+{
+"title": "The Poet’s Garden",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1888",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Painted in a public park in Arles to decorate the room where Van Gogh hoped Gauguin would stay.",
+"alias": [
+"the poets garden",
+"poet's garden"
+],
+"img": "52a6"
+},
+{
+"title": "Grapes, Lemons, Pears, and Apples",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1887",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Van Gogh painted a series of fruit still lifes in Paris to practice the bright colors he was discovering there.",
+"alias": [
+"grapes lemons pears and apples",
+"still life with fruit"
+],
+"img": "5e78"
+},
+{
+"title": "The Drinkers (after Daumier)",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1890",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "In the hospital at Saint-Rémy, Van Gogh copied works by artists he admired. This one is based on a print after Honoré Daumier.",
+"alias": [
+"the drinkers",
+"drinkers",
+"the four ages of the drinker"
+],
+"img": "0e89"
+},
+{
+"title": "Te burao (The Hibiscus Tree)",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1892",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Painted during Gauguin’s first stay in Tahiti. The title is in Tahitian, as with most of his pictures from there.",
+"alias": [
+"te burao",
+"the hibiscus tree",
+"hibiscus tree"
+],
+"img": "868d"
+},
+{
+"title": "Mahana no atua (Day of the God)",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1894",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Gauguin painted this Tahitian scene in Paris, from memory and imagination. The bands of colored water at the bottom are pure invention.",
+"alias": [
+"mahana no atua",
+"day of the god"
+],
+"img": "16ea"
+},
+{
+"title": "No te aha oe riri (Why Are You Angry?)",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1896",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Made on Gauguin’s second and final trip to Tahiti, where he lived for the rest of his life.",
+"alias": [
+"no te aha oe riri",
+"why are you angry"
+],
+"img": "2b81"
+},
+{
+"title": "Woman in Front of a Still Life by Cézanne",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1890",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Gauguin owned a Cézanne still life and placed it behind this sitter as a tribute to the older painter.",
+"alias": [
+"woman in front of a still life by cezanne",
+"portrait of marie lagadu"
+],
+"img": "796f"
+},
+{
+"title": "Te raau rahi (The Big Tree)",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1891",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "One of the first paintings Gauguin made after arriving in Tahiti in 1891.",
+"alias": [
+"te raau rahi",
+"the big tree",
+"big tree"
+],
+"img": "28cd"
+},
+{
+"title": "Merahi metua no Tehamana (Tehamana Has Many Parents)",
+"artist": "Paul Gauguin",
+"life": "French, 1848–1903",
+"date": "1893",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Tehamana was Gauguin’s Tahitian wife during his first stay. The carved figures and script behind her are Gauguin’s own inventions.",
+"alias": [
+"merahi metua no tehamana",
+"tehamana has many parents",
+"the ancestors of tehamana",
+"ancestors of tehamana"
+],
+"img": "b09f"
+},
+{
+"title": "The Basket of Apples",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "c. 1893",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "The table edges don’t line up and the bottle leans. Cézanne bent the rules of perspective on purpose, which made this a key picture for Cubism.",
+"alias": [
+"basket of apples",
+"still life with basket of apples"
+],
+"img": "907b"
+},
+{
+"title": "The Bay of Marseille, Seen from L’Estaque",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "c. 1885",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Cézanne returned to this view across the bay many times. He wrote that the red roofs against the blue sea looked like a playing card.",
+"alias": [
+"bay of marseille",
+"the bay of marseille seen from l'estaque",
+"l'estaque"
+],
+"img": "7d08"
+},
+{
+"title": "The Vase of Tulips",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "c. 1890",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Cézanne worked so slowly that real flowers wilted, so for later still lifes he sometimes used paper ones.",
+"alias": [
+"vase of tulips",
+"tulips"
+],
+"img": "0204"
+},
+{
+"title": "The Bathers (Cézanne)",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "1899–1904",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Bathers in a landscape obsessed Cézanne late in life. This small canvas is related to his three huge versions in Philadelphia, London and the Barnes Foundation.",
+"alias": [
+"the bathers",
+"bathers",
+"the large bathers",
+"les grandes baigneuses"
+],
+"series": "cezbathers",
+"img": "4ca0"
+},
+{
+"title": "Bathers (Cézanne, c. 1890)",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "c. 1890",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Cézanne painted bathers from imagination and old drawings rather than live models.",
+"alias": [
+"bathers",
+"the bathers",
+"baigneurs"
+],
+"series": "cezbathers",
+"img": "7551"
+},
+{
+"title": "Madame Cézanne in a Yellow Chair",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "1888–90",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Hortense Fiquet sat for Cézanne about 30 times. He reportedly asked sitters to keep as still as an apple.",
+"alias": [
+"madame cezanne",
+"madame cezanne in a yellow chair",
+"hortense fiquet"
+],
+"img": "327e"
+},
+{
+"title": "The Plate of Apples",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "c. 1877",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Apples were Cézanne’s favorite subject. He said he wanted to astonish Paris with an apple.",
+"alias": [
+"plate of apples"
+],
+"img": "1b25"
+},
+{
+"title": "Final Study for Bathers at Asnières",
+"artist": "Georges Seurat",
+"life": "French, 1859–1891",
+"date": "1883",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "A small study for Seurat’s first big painting, now in the National Gallery, London.",
+"alias": [
+"bathers at asnieres",
+"study for bathers at asnieres",
+"bathing at asnieres",
+"une baignade"
+],
+"img": "365e"
+},
+{
+"title": "At the Moulin Rouge",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1892–95",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "The green-faced woman at the right was cut off at one point and later sewn back on. Toulouse-Lautrec himself is the short man in the background.",
+"alias": [
+"moulin rouge",
+"at the moulin rouge"
+],
+"img": "7b4b"
+},
+{
+"title": "Equestrienne (At the Cirque Fernando)",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1887–88",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "The owner of the Moulin Rouge bought this circus scene to hang in the club’s foyer when it opened in 1889.",
+"alias": [
+"equestrienne",
+"at the cirque fernando",
+"cirque fernando",
+"the circus fernando"
+],
+"img": "83fb"
+},
+{
+"title": "Ballet Dancers (Toulouse-Lautrec)",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1885–86",
+"medium": "Oil on plaster, transferred to canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Painted directly on the wall of a country inn near Paris, then moved to canvas years later.",
+"alias": [
+"ballet dancers",
+"dancers"
+],
+"img": "d42e"
+},
+{
+"title": "Moulin de la Galette (Toulouse-Lautrec)",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1889",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "The same open-air dance hall Renoir painted 13 years earlier, seen here as a gloomier, indoor place.",
+"alias": [
+"moulin de la galette",
+"bal du moulin de la galette"
+],
+"img": "736f"
+},
+{
+"title": "Portrait of Jeanne Wenz",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1886",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Jeanne Wenz was the sister of a fellow art student. Toulouse-Lautrec painted her in profile with quick, loose strokes.",
+"alias": [
+"jeanne wenz"
+],
+"img": "fd9f"
+},
+{
+"title": "Jane Avril",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1899",
+"medium": "Color lithograph (poster)",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Dancer Jane Avril was a friend and favorite model. This poster, with a snake coiling around her dress, was never used for publicity.",
+"alias": [
+"jane avril poster"
+],
+"img": "169d"
+},
+{
+"title": "Confetti",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1894",
+"medium": "Color lithograph (poster)",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "An advertising poster for a London maker of paper confetti.",
+"alias": [],
+"img": "28e9"
+},
+{
+"title": "At the Moulin Rouge: La Goulue and Her Sister",
+"artist": "Henri de Toulouse-Lautrec",
+"life": "French, 1864–1901",
+"date": "1892",
+"medium": "Color lithograph",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "La Goulue (“the glutton”) was the Moulin Rouge’s star cancan dancer.",
+"alias": [
+"la goulue and her sister",
+"la goulue"
+],
+"img": "42a4"
+},
+{
+"title": "The Scream",
+"artist": "Edvard Munch",
+"life": "Norwegian, 1863–1944",
+"date": "1895",
+"medium": "Lithograph",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism",
+"famous"
+],
+"fact": "Munch made several versions of The Scream in paint, pastel and print. This black-and-white lithograph let him sell it to many more people.",
+"alias": [
+"scream",
+"the cry",
+"skrik"
+],
+"img": "2625"
+},
+{
+"title": "Two Women on the Shore",
+"artist": "Edvard Munch",
+"life": "Norwegian, 1863–1944",
+"date": "1898",
+"medium": "Color woodcut",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "A young woman in white and an old woman in black: Munch often paired youth and death on the shoreline near his summer house.",
+"alias": [
+"two women on the shore"
+],
+"img": "539c"
+},
+{
+"title": "Beach at Cabasson (Baigne-Cul)",
+"artist": "Henri-Edmond Cross",
+"life": "French, 1856–1910",
+"date": "1891–92",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Cross painted the Mediterranean coast in Seurat’s dot technique. Baigne-Cul is a cheeky local name for the beach.",
+"alias": [
+"beach at cabasson",
+"baigne-cul",
+"cabasson"
+],
+"img": "b078"
+},
+{
+"title": "Les Andelys, Côte d’Aval",
+"artist": "Paul Signac",
+"life": "French, 1863–1935",
+"date": "1886",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Painted in 1886, the year Signac and Seurat showed their new dot technique at the last Impressionist exhibition.",
+"alias": [
+"les andelys",
+"cote d'aval"
+],
+"img": "2bf4"
+},
+{
+"title": "Landscape: Window Overlooking the Woods",
+"artist": "Édouard Vuillard",
+"life": "French, 1868–1940",
+"date": "1899",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "A large decorative panel painted for a Paris apartment, meant to feel like looking out a window onto the woods.",
+"alias": [
+"window overlooking the woods",
+"landscape window overlooking the woods"
+],
+"img": "8a99"
+},
+{
+"title": "Still Life with Flowers (Redon)",
+"artist": "Odilon Redon",
+"life": "French, 1840–1916",
+"date": "1905",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Redon spent his early career making dark, dreamlike charcoal drawings, then turned late in life to glowing flowers like these.",
+"alias": [
+"still life with flowers",
+"vase of flowers",
+"flowers"
+],
+"img": "1ba1"
+},
+{
+"title": "The Terrace Bridge, Central Park",
+"artist": "Maurice Prendergast",
+"life": "American, born Canada, 1858–1924",
+"date": "1901",
+"medium": "Watercolor",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"postimpressionism"
+],
+"fact": "Prendergast is one of the few Americans counted among the Post-Impressionists. Bethesda Terrace in Central Park still looks much like this.",
+"alias": [
+"terrace bridge central park",
+"central park",
+"bethesda terrace"
+],
+"img": "64e9"
+},
+{
+"title": "Young Peasant Having Her Coffee",
+"artist": "Camille Pissarro",
+"life": "French, born Danish West Indies, 1830–1903",
+"date": "1881",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"impressionism"
+],
+"fact": "Pissarro spent much of his career painting the farm workers around his home in Pontoise.",
+"alias": [
+"young peasant having her coffee",
+"peasant girl drinking her coffee"
+],
+"img": "7ae2"
+},
+{
+"title": "Woman and Child at the Well",
+"artist": "Camille Pissarro",
+"life": "French, born Danish West Indies, 1830–1903",
+"date": "1882",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"impressionism"
+],
+"fact": "Pissarro was the only artist to show work at all eight Impressionist exhibitions.",
+"alias": [
+"woman and child at the well",
+"at the well"
+],
+"img": "434f"
+},
+{
+"title": "Woman Bathing Her Feet in a Brook",
+"artist": "Camille Pissarro",
+"life": "French, born Danish West Indies, 1830–1903",
+"date": "1894–95",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"impressionism"
+],
+"fact": "A late Pissarro, painted near his home at Éragny after his years experimenting with Seurat’s dots.",
+"alias": [
+"woman bathing her feet in a brook",
+"woman bathing her feet"
+],
+"img": "2616"
+},
+{
+"title": "A Lady Writing",
+"artist": "Johannes Vermeer",
+"life": "Dutch, 1632–1675",
+"date": "c. 1665",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"famous"
+],
+"fact": "Only about 35 paintings by Vermeer survive. The yellow jacket trimmed with ermine shows up in several of his other pictures.",
+"alias": [
+"lady writing",
+"a lady writing a letter",
+"woman writing a letter"
+],
+"img": "e27f"
+},
+{
+"title": "Self-Portrait (Rembrandt, 1659)",
+"artist": "Rembrandt van Rijn",
+"life": "Dutch, 1606–1669",
+"date": "1659",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"famous"
+],
+"fact": "Rembrandt painted about 40 self-portraits. This one was made soon after he went bankrupt.",
+"alias": [
+"self-portrait",
+"self portrait",
+"rembrandt self-portrait",
+"rembrandt self portrait"
+],
+"img": "9069"
+},
+{
+"title": "The Child’s Bath",
+"artist": "Mary Cassatt",
+"life": "American, 1844–1926",
+"date": "1893",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"famous"
+],
+"fact": "Cassatt was the only American to exhibit with the Impressionists in Paris. The high viewpoint and flat patterns come from Japanese prints.",
+"alias": [
+"the childs bath",
+"child's bath",
+"the bath"
+],
+"img": "9859"
 }
 ];
 
