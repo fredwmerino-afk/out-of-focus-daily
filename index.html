@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Out of Focus Daily</title>
+<meta name="description" content="A daily art puzzle: name the masterpiece before it comes into focus. Five famous paintings a day.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://out-of-focus-daily.netlify.app/">
+<meta property="og:title" content="Out of Focus Daily">
+<meta property="og:description" content="Name the masterpiece before it comes into focus. A new puzzle every day.">
+<meta property="og:image" content="https://out-of-focus-daily.netlify.app/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Out of Focus Daily">
+<meta name="twitter:description" content="Name the masterpiece before it comes into focus. A new puzzle every day.">
+<meta name="twitter:image" content="https://out-of-focus-daily.netlify.app/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* One visual world: a deep green gallery wall, a gilt frame, a paper wall label. Single theme by choice. */
+  --wall:#18241f;
+  --wall-2:#22332c;
+  --gilt:#c9a45c;
+  --paper:#efe8d8;
+  --ink:#1c1a16;
+  --oxblood:#a5382f;
+  --muted:#9fb1a7;
+  --good:#7fbf8e;
+  --display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --body:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:radial-gradient(ellipse at 50% 18%, var(--wall-2) 0%, var(--wall) 62%);
+  background-color:var(--wall);
+  color:var(--paper);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.45;
+}
+button,input{font:inherit}
+:focus-visible{outline:2px solid var(--gilt);outline-offset:2px}
+
+.wrap{max-width:1080px;margin:0 auto;padding:20px 20px 40px;display:flex;flex-direction:column;gap:18px}
+
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand h1{
+  font-family:var(--display);font-weight:500;font-style:italic;
+  font-size:clamp(34px,5vw,52px);line-height:1;margin:0;letter-spacing:-.01em;
+}
+.brand h1 b{font-style:normal;font-weight:800;color:var(--gilt)}
+.brand h1 .daily{font-family:var(--body);font-style:normal;font-weight:600;font-size:.32em;letter-spacing:.22em;text-transform:uppercase;color:var(--paper);border:1px solid var(--gilt);border-radius:3px;padding:.3em .55em .25em .75em;vertical-align:middle;margin-left:.35em;position:relative;top:-.15em}
+.brand p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.scoreboard{display:flex;gap:22px;font-variant-numeric:tabular-nums}
+.scoreboard div{display:flex;flex-direction:column;align-items:flex-end}
+.scoreboard span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.scoreboard strong{font-family:var(--display);font-size:30px;font-weight:600;line-height:1.1}
+
+.cats{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{
+  border:1px solid rgba(201,164,92,.45);background:transparent;color:var(--paper);
+  padding:7px 14px;border-radius:999px;cursor:pointer;font-size:14px;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.chip:hover{border-color:var(--gilt)}
+.chip[aria-pressed="true"]{background:var(--gilt);color:var(--ink);border-color:var(--gilt);font-weight:600}
+.toggle{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle input{accent-color:var(--gilt);width:16px;height:16px}
+
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+@media (max-width:860px){.stage{grid-template-columns:1fr}.toggle{margin-left:0}}
+
+/* The frame */
+.frame-col{display:flex;flex-direction:column;align-items:center;gap:14px}
+.frame{
+  position:relative;padding:18px;
+  background:
+    linear-gradient(135deg,#e6c987 0%,#a8813e 22%,#e9cf93 45%,#8d6a2e 70%,#d4b46f 100%);
+  box-shadow:0 24px 50px rgba(0,0,0,.55), inset 0 0 0 2px rgba(0,0,0,.25), inset 0 0 0 7px rgba(255,236,190,.18);
+  max-width:100%;
+}
+.frame::before{content:"";position:absolute;inset:12px;box-shadow:inset 0 0 0 2px rgba(60,40,10,.55);pointer-events:none}
+.mat{background:#0d0f0e;padding:0;line-height:0}
+canvas#art{display:block;max-width:100%;height:auto;image-rendering:pixelated}
+.loading{position:absolute;inset:18px;display:grid;place-items:center;color:var(--muted);font-size:14px;line-height:1.4;pointer-events:none}
+
+.ladder{display:flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.rung{
+  min-width:52px;text-align:center;padding:5px 6px;border-radius:4px;font-size:13px;
+  border:1px solid rgba(239,232,216,.16);color:var(--muted);
+}
+.rung.now{border-color:var(--gilt);color:var(--ink);background:var(--gilt);font-weight:600}
+.rung.past{text-decoration:line-through;opacity:.5}
+.ladder-label{font-size:12px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+
+/* Right column */
+.panel{display:flex;flex-direction:column;gap:14px}
+.prompt{font-family:var(--display);font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+.prompt em{color:var(--gilt)}
+.guess{position:relative}
+.guess input{
+  width:100%;padding:13px 14px;border-radius:6px;border:1px solid rgba(239,232,216,.25);
+  background:rgba(0,0,0,.25);color:var(--paper);font-size:16px;
+}
+.guess input::placeholder{color:#7d8f86}
+.guess input:focus{border-color:var(--gilt);outline:none;box-shadow:0 0 0 3px rgba(201,164,92,.25)}
+.suggest{
+  position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;margin:0;padding:4px;list-style:none;
+  background:var(--paper);color:var(--ink);border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.45);
+  max-height:240px;overflow:auto;
+}
+.suggest li{padding:8px 10px;border-radius:4px;cursor:pointer;font-family:var(--display);font-style:italic;font-size:17px}
+.suggest li[aria-selected="true"],.suggest li:hover{background:#ddd3bc}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  flex:1 1 auto;padding:11px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:15px;
+  border:1px solid var(--gilt);background:var(--gilt);color:var(--ink);
+}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--paper);border-color:rgba(239,232,216,.3);font-weight:500}
+.btn.ghost:hover{border-color:var(--gilt)}
+.btn:disabled{opacity:.4;cursor:not-allowed;filter:none}
+.btn small{font-weight:400;opacity:.75;margin-left:4px}
+
+.choices{display:grid;grid-template-columns:1fr;gap:8px}
+.choice{
+  text-align:left;padding:10px 12px;border-radius:6px;cursor:pointer;
+  border:1px solid rgba(239,232,216,.25);background:rgba(0,0,0,.2);color:var(--paper);
+  font-family:var(--display);font-style:italic;font-size:17px;
+}
+.choice:hover{border-color:var(--gilt)}
+
+.feedback{min-height:22px;font-size:14px;color:var(--muted)}
+.feedback.bad{color:#e48a80}
+.feedback.good{color:var(--good)}
+.hintline{font-size:14px;color:var(--gilt)}
+
+/* Museum wall label */
+.label{
+  background:var(--paper);color:var(--ink);padding:18px 20px 16px;border-radius:2px;
+  box-shadow:0 10px 24px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:6px;
+  animation:rise .5s ease both;
+}
+.label .verdict{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.label .verdict.win{color:#2f6b3d}.label .verdict.lose{color:var(--oxblood)}
+.label .artist{font-weight:600;font-size:15px}
+.label .artist span{font-weight:400;color:#5c564b}
+.label h2{font-family:var(--display);font-style:italic;font-weight:500;font-size:26px;line-height:1.1;margin:2px 0 0;text-wrap:balance}
+.label h2 span{font-style:normal;font-size:20px}
+.label .meta{font-size:13px;color:#5c564b}
+.label .fact{font-size:14.5px;margin:8px 0 0;border-top:1px solid #cfc5ae;padding-top:10px;max-width:65ch}
+.label .btn{margin-top:10px}
+@keyframes rise{from{opacity:.0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Progress strip */
+.strip{display:flex;gap:6px}
+.strip i{width:30px;height:6px;border-radius:3px;background:rgba(239,232,216,.15)}
+.strip i.cur{background:var(--gilt)}
+.strip i.w1{background:#5fae73}.strip i.w2{background:#c9b04a}.strip i.w3{background:#d98a3d}.strip i.l{background:var(--oxblood)}
+
+/* End screen */
+.summary{display:flex;flex-direction:column;gap:12px}
+.summary h2{font-family:var(--display);font-weight:500;font-size:34px;margin:0;line-height:1.05}
+.summary h2 em{color:var(--gilt)}
+.summary ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.summary li{display:flex;justify-content:space-between;gap:12px;font-size:14px;border-bottom:1px solid rgba(239,232,216,.1);padding-bottom:6px}
+.summary li span:first-child{font-family:var(--display);font-style:italic;font-size:16px}
+.sharebox{font-size:18px;letter-spacing:1px;overflow-wrap:anywhere;background:rgba(0,0,0,.25);padding:10px 12px;border-radius:6px;white-space:pre-wrap;line-height:1.3}
+
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stats div{flex:1;min-width:84px;background:rgba(0,0,0,.2);border-radius:6px;padding:8px 10px;text-align:center}
+.stats strong{display:block;font-family:var(--display);font-size:26px;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.stats span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nextpuzzle{font-size:14px;color:var(--muted)}
+.nextpuzzle strong{color:var(--paper);font-variant-numeric:tabular-nums}
+footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08);padding-top:12px}
+
+@media (prefers-reduced-motion: reduce){.label{animation:none}}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <h1>Out of <b>Focus</b> <span class="daily">Daily</span></h1>
+      <p>Name the masterpiece before it comes into focus. The sooner you guess, the more you score.</p>
+    </div>
+    <div class="scoreboard" aria-live="polite">
+      <div><span>Painting</span><strong id="roundNum">1/5</strong></div>
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div title="Days in a row you have finished Today's five"><span>Streak</span><strong id="streak">0</strong></div>
+    </div>
+  </header>
+
+  <nav class="cats" aria-label="Category">
+    <button class="chip" data-cat="daily" aria-pressed="true">Today’s five</button>
+    <button class="chip" data-cat="all" aria-pressed="false">Everything</button>
+    <button class="chip" data-cat="renaissance" aria-pressed="false">Renaissance</button>
+    <button class="chip" data-cat="impressionism" aria-pressed="false">Impressionism</button>
+    <button class="chip" data-cat="baroque" aria-pressed="false">Baroque</button>
+    <label class="toggle" for="hard"><input type="checkbox" id="hard"> Hard mode: grayscale until the 4th view</label>
+  </nav>
+
+  <div class="strip" id="strip" aria-hidden="true"></div>
+
+  <main class="stage">
+    <div class="frame-col">
+      <div class="frame">
+        <div class="mat"><canvas id="art" width="560" height="560" aria-label="Pixelated painting"></canvas></div>
+        <div class="loading" id="loading">Hanging the painting…</div>
+      </div>
+      <div class="ladder" id="ladder" aria-label="Points available at each view"></div>
+    </div>
+
+    <section class="panel" id="panel">
+      <div id="play">
+        <div class="panel">
+          <p class="prompt">What is this painting?</p>
+          <form class="guess" id="guessForm" autocomplete="off">
+            <input id="guessInput" type="text" placeholder="Type a title…" aria-label="Painting title" aria-autocomplete="list" aria-controls="suggest">
+            <ul class="suggest" id="suggest" role="listbox" hidden></ul>
+          </form>
+          <div class="row">
+            <button class="btn" id="guessBtn" type="button">Guess</button>
+            <button class="btn ghost" id="sharpenBtn" type="button">Sharpen it</button>
+          </div>
+          <div class="row">
+            <button class="btn ghost" id="hintBtn" type="button">Hint <small>−100</small></button>
+            <button class="btn ghost" id="choicesBtn" type="button">Show 4 choices <small>½ points</small></button>
+          </div>
+          <div class="hintline" id="hintLine" hidden></div>
+          <div class="choices" id="choices" hidden></div>
+          <div class="feedback" id="feedback" aria-live="polite"></div>
+        </div>
+      </div>
+      <div id="reveal" hidden></div>
+      <div id="summary" class="summary" hidden></div>
+    </section>
+  </main>
+
+  <footer>Prototype · <span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago and the National Gallery of Art, Washington.</footer>
+</div>
+
+<script>
+const PAINTINGS = [
+{
+"title": "Ginevra de’ Benci",
+"artist": "Leonardo da Vinci",
+"life": "Italian, 1452–1519",
+"date": "c. 1474–78",
+"medium": "Oil on panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "The only painting by Leonardo in the Americas. On the back is a juniper sprig, ginepro in Italian, a pun on her name, with the motto “Beauty adorns virtue.”",
+"alias": [
+"ginevra de benci",
+"ginevra",
+"portrait of ginevra de benci"
+],
+"img": "756b"
+},
+{
+"title": "Madonna and Child in a Garden",
+"artist": "Cosmè Tura",
+"life": "Ferrarese, c. 1433–1495",
+"date": "c. 1460–70",
+"medium": "Tempera (and possibly oil) on poplar panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "The garden stands for Eden, and the orange trees’ white blossoms symbolize Mary’s purity.",
+"alias": [
+"madonna and child",
+"madonna in a garden"
+],
+"img": "e445"
+},
+{
+"title": "Matteo Olivieri (?)",
+"artist": "Unknown Florentine painter",
+"life": "Florentine, 15th century",
+"date": "1430s",
+"medium": "Tempera (and oil?) on panel, transferred to canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "The gold inscription names the sitter, but nobody knows who painted him. Over the years it has been credited to Domenico Veneziano and to Paolo Uccello.",
+"alias": [
+"matteo olivieri",
+"olivieri",
+"portrait of matteo olivieri"
+],
+"display": "Matteo Olivieri (?)",
+"img": "e425"
+},
+{
+"title": "Portrait of a Man (Castagno)",
+"artist": "Andrea del Castagno",
+"life": "Florentine, before 1419–1457",
+"date": "c. 1450",
+"medium": "Tempera on panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "This face was printed on Italy’s 10,000-lira banknotes from 1976 to 1984.",
+"alias": [
+"portrait of a man",
+"castagno portrait of a man"
+],
+"display": "Portrait of a Man",
+"img": "bcb8"
+},
+{
+"title": "Portrait of a Youth",
+"artist": "Agnolo or Donnino di Domenico del Mazziere",
+"life": "Florentine, active c. 1480–1515",
+"date": "c. 1495–1500",
+"medium": "Oil on panel, transferred to canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "Experts can’t decide which of two painter brothers made it. For decades it was credited to Pintoricchio.",
+"alias": [
+"portrait of a young man",
+"youth"
+],
+"img": "8a27"
+},
+{
+"title": "Saint John the Baptist",
+"artist": "Jacopo del Sellaio",
+"life": "Florentine, 1441/1442–1493",
+"date": "c. 1480",
+"medium": "Oil on poplar panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "John the Baptist was the patron saint of Florence, and here he stands before the city’s skyline.",
+"alias": [
+"st john the baptist",
+"john the baptist"
+],
+"img": "ac1b"
+},
+{
+"title": "Summer",
+"artist": "Tintoretto",
+"life": "Venetian, 1518/1519–1594",
+"date": "c. 1555",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "Tintoretto’s nickname means “little dyer”; his father dyed cloth for a living.",
+"alias": [
+"allegory of summer"
+],
+"img": "1477"
+},
+{
+"title": "The Coronation of the Virgin",
+"artist": "Filippino Lippi",
+"life": "Florentine, 1457–1504",
+"date": "c. 1475",
+"medium": "Tempera and oil on poplar panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "One of Filippino’s earliest works. He was the son of the painter Fra Filippo Lippi and trained with Botticelli.",
+"alias": [
+"coronation of the virgin"
+],
+"img": "e431"
+},
+{
+"title": "The Visitation with Saint Nicholas and Saint Anthony Abbot",
+"artist": "Piero di Cosimo",
+"life": "Florentine, 1462–1522",
+"date": "c. 1489–90",
+"medium": "Oil on panel",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"renaissance"
+],
+"fact": "The Capponi family commissioned it for their chapel in the church of Santo Spirito in Florence. Piero was about 27 when he painted it.",
+"alias": [
+"the visitation",
+"visitation",
+"visitation with saint nicholas and saint anthony"
+],
+"img": "c778"
+},
+{
+"title": "The Assumption of the Virgin",
+"artist": "El Greco",
+"life": "Greek, active in Spain, 1541–1614",
+"date": "1577–79",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "El Greco’s first big commission after arriving in Spain, made for the high altar of a convent church in Toledo.",
+"alias": [
+"assumption of the virgin",
+"the assumption",
+"assumption"
+],
+"img": "21d7"
+},
+{
+"title": "Portrait of Jean Gros",
+"artist": "Rogier van der Weyden",
+"life": "Netherlandish, c. 1399–1464",
+"date": "c. 1460–64",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Originally one half of a hinged pair: Jean Gros, a Burgundian court official, prayed toward a separate panel of the Virgin and Child. His coat of arms is painted on the back.",
+"alias": [
+"jean gros"
+],
+"img": "aa98"
+},
+{
+"title": "Virgin and Child (Rogier van der Weyden workshop)",
+"artist": "Workshop of Rogier van der Weyden",
+"life": "Netherlandish, 15th century",
+"date": "1460–1500",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "The cushion seems to rest on the edge of the frame, as if Mary were showing her child to us through a window.",
+"alias": [
+"virgin and child",
+"madonna and child"
+],
+"img": "b3e3"
+},
+{
+"title": "The Annunciation",
+"artist": "Jean Hey (Master of Moulins)",
+"life": "Netherlandish, active in France, c. 1475–c. 1505",
+"date": "1490–95",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Jean Hey was court painter to the Duke and Duchess of Bourbon, and may have made this altarpiece to celebrate the birth of their only child.",
+"alias": [
+"annunciation"
+],
+"img": "df94"
+},
+{
+"title": "Saint George and the Dragon",
+"artist": "Bernat Martorell",
+"life": "Catalan, died 1452",
+"date": "1434–35",
+"medium": "Tempera on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Saint George is the patron saint of Catalonia. This was the centerpiece of an altarpiece whose side panels are now in the Louvre.",
+"alias": [
+"st george and the dragon",
+"saint george",
+"george and the dragon"
+],
+"img": "c96e"
+},
+{
+"title": "Saint Francis Kneeling in Meditation",
+"artist": "El Greco",
+"life": "Greek, active in Spain, 1541–1614",
+"date": "c. 1595–1600",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Saint Francis in prayer was one of El Greco’s most popular subjects, and he and his workshop painted it many times.",
+"alias": [
+"st francis kneeling in meditation",
+"saint francis in meditation",
+"saint francis"
+],
+"img": "05af"
+},
+{
+"title": "Virgin and Child with Two Angels",
+"artist": "Florentine painter",
+"life": "Italian, 15th century",
+"date": "15th century",
+"medium": "Painting on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Small Virgin and Child panels like this were made for private prayer in Florentine homes.",
+"alias": [
+"virgin and child with angels",
+"madonna and child with two angels"
+],
+"img": "1d95"
+},
+{
+"title": "Scenes from the Life of Saint John the Baptist",
+"artist": "Bartolomeo di Giovanni",
+"life": "Italian, active c. 1465–1501",
+"date": "1490–95",
+"medium": "Tempera on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Several moments share one picture: John’s birth inside the room, his naming, and the Holy Family returning from Egypt behind the rocks.",
+"alias": [
+"scenes from the life of st john the baptist",
+"life of saint john the baptist"
+],
+"img": "bcc8"
+},
+{
+"title": "Saint Martin and the Beggar",
+"artist": "El Greco",
+"life": "Greek, active in Spain, 1541–1614",
+"date": "c. 1597–1600",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Martin wears fashionable armor of El Greco’s own day, and the walls of Toledo appear in the distance. A larger version hangs in Washington.",
+"alias": [
+"st martin and the beggar",
+"saint martin"
+],
+"img": "4cd5"
+},
+{
+"title": "Virgin and Child with Two Angels (Botticelli)",
+"artist": "Sandro Botticelli",
+"life": "Italian, 1444/45–1510",
+"date": "1485–95",
+"medium": "Tempera on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "A late Botticelli in which two angels pull back curtains to reveal the Virgin and Child. Round paintings like this were popular in Florentine homes.",
+"alias": [
+"virgin and child with two angels",
+"botticelli tondo",
+"madonna and child with two angels"
+],
+"img": "425c"
+},
+{
+"title": "Virgin and Child with an Angel",
+"artist": "Sandro Botticelli",
+"life": "Italian, 1444/45–1510",
+"date": "1475–85",
+"medium": "Tempera on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Botticelli learned his craft from the painter Fra Filippo Lippi. Here Mary presses her cheek to her son’s as an angel looks on.",
+"alias": [
+"madonna and child with an angel",
+"virgin and child with angel"
+],
+"img": "b02d"
+},
+{
+"title": "The Nativity",
+"artist": "Fra Bartolommeo",
+"life": "Italian, 1472–1517",
+"date": "1504–07",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Fra Bartolommeo gave up painting for several years after becoming a Dominican friar. He made this soon after returning to his art in 1504.",
+"alias": [
+"nativity"
+],
+"img": "3dd4"
+},
+{
+"title": "Christ Carrying the Cross",
+"artist": "Sebastiano del Piombo",
+"life": "Italian, c. 1485–1547",
+"date": "1515–17",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Sebastiano painted his own repeat of a work now in the Prado, made for the Spanish ambassador in Rome. This one resurfaced and came to Chicago in 2016.",
+"alias": [
+"christ carrying the cross",
+"carrying the cross"
+],
+"img": "b983"
+},
+{
+"title": "Doge Andrea Gritti",
+"artist": "Workshop of Titian",
+"life": "Italian, 16th century",
+"date": "1530–40",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Andrea Gritti ruled Venice as doge from 1523 until his death in 1538.",
+"alias": [
+"andrea gritti",
+"the doge",
+"doge"
+],
+"img": "7d19"
+},
+{
+"title": "Francesco de’ Medici",
+"artist": "Attributed to Alessandro Allori",
+"life": "Italian, 1535–1607",
+"date": "c. 1560",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"renaissance"
+],
+"fact": "Painted fourteen years before Francesco became Grand Duke of Tuscany. He ruled from 1574 until his death in 1587.",
+"alias": [
+"francesco de medici",
+"francesco i de medici",
+"medici"
+],
+"img": "1a14"
+},
+{
+"title": "The Races at Longchamp",
+"artist": "Édouard Manet",
+"life": "French, 1832–1883",
+"date": "1866",
+"cats": [
+"impressionism"
+],
+"fact": "Manet put the horses charging straight at the viewer, a startling choice when racing pictures usually showed them side-on.",
+"alias": [
+"races at longchamp",
+"longchamp",
+"the races"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "38b2"
+},
+{
+"title": "Bordighera",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1884",
+"cats": [
+"impressionism"
+],
+"fact": "Monet spent the early months of 1884 on the Italian Riviera and struggled to capture its intense Mediterranean light.",
+"alias": [],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "9311"
+},
+{
+"title": "Stacks of Wheat (Sunset, Snow Effect)",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1890–91",
+"cats": [
+"impressionism"
+],
+"fact": "Monet painted about 25 canvases of the wheat stacks near his home in Giverny, each in different light, weather or season.",
+"alias": [
+"stacks of wheat",
+"stack of wheat",
+"haystacks",
+"haystack",
+"wheatstacks",
+"grainstacks"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "wheat",
+"img": "3233"
+},
+{
+"title": "Lunch at the Restaurant Fournaise (The Rowers’ Lunch)",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1875",
+"cats": [
+"impressionism"
+],
+"fact": "The Restaurant Fournaise, on an island in the Seine, was a favorite rowers’ hangout. Renoir later set his famous Luncheon of the Boating Party there.",
+"alias": [
+"the rowers lunch",
+"rowers lunch",
+"restaurant fournaise",
+"lunch at restaurant fournaise"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "e639"
+},
+{
+"title": "Seascape",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1879",
+"cats": [
+"impressionism"
+],
+"fact": "Renoir is famous for people and parties. This stormy sea shows a rougher, more energetic side of his brushwork.",
+"alias": [],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "05e1"
+},
+{
+"title": "Near the Lake",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "c. 1879",
+"cats": [
+"impressionism"
+],
+"fact": "Renoir loved painting Parisians at leisure outdoors, with sunlight broken up by leaves and water.",
+"alias": [],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "fb06"
+},
+{
+"title": "Acrobats at the Cirque Fernando (Francisca and Angelina Wartenberg)",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1879",
+"cats": [
+"impressionism"
+],
+"fact": "The girls were young performers in a Paris circus. The oranges at their feet were tossed into the ring by the audience.",
+"alias": [
+"acrobats at the cirque fernando",
+"acrobats",
+"cirque fernando",
+"two little circus girls"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "a0e3"
+},
+{
+"title": "Poppy Field (Giverny)",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1890–91",
+"cats": [
+"impressionism"
+],
+"fact": "Monet lived in Giverny from 1883 until his death, and painted the fields around the village again and again.",
+"alias": [
+"poppy field",
+"poppies",
+"poppy field giverny"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "cb60"
+},
+{
+"title": "Woman at Her Toilette",
+"artist": "Berthe Morisot",
+"life": "French, 1841–1895",
+"date": "1875–80",
+"cats": [
+"impressionism"
+],
+"fact": "Morisot showed her work in seven of the eight Impressionist exhibitions, more than almost anyone. She was married to Manet’s brother Eugène.",
+"alias": [
+"woman at her toilet",
+"young woman at her toilette"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "80c6"
+},
+{
+"title": "A Sunday on La Grande Jatte — 1884",
+"artist": "Georges Seurat",
+"life": "French, 1859–1891",
+"date": "1884–86",
+"cats": [
+"impressionism"
+],
+"fact": "Seurat built the whole picture from tiny dots of unmixed color, a technique called pointillism. It took him about two years.",
+"alias": [
+"sunday on la grande jatte",
+"a sunday afternoon on the island of la grande jatte",
+"sunday afternoon on the island of la grande jatte",
+"la grande jatte",
+"grande jatte"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "b699"
+},
+{
+"title": "Charing Cross Bridge, London",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1901",
+"cats": [
+"impressionism"
+],
+"fact": "Monet painted his London views from his room at the Savoy Hotel. He loved the city’s fog.",
+"alias": [
+"charing cross bridge"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "ae48"
+},
+{
+"title": "Apples and Grapes",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1880",
+"cats": [
+"impressionism"
+],
+"fact": "Still lifes are unusual for Monet. Several date from around 1880, when he needed pictures that would sell easily.",
+"alias": [],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "2de8"
+},
+{
+"title": "The Artist’s House at Argenteuil",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1873",
+"cats": [
+"impressionism"
+],
+"fact": "The little boy is Monet’s son Jean, and his wife Camille stands in the doorway.",
+"alias": [
+"the artists house at argenteuil",
+"artists house at argenteuil",
+"house at argenteuil"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "9590"
+},
+{
+"title": "Branch of the Seine near Giverny (Mist)",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1897",
+"cats": [
+"impressionism"
+],
+"fact": "Part of Monet’s Mornings on the Seine series, painted at dawn from a boat he used as a floating studio.",
+"alias": [
+"branch of the seine near giverny",
+"mornings on the seine",
+"branch of the seine"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "9340"
+},
+{
+"title": "Water Lilies",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1906",
+"cats": [
+"impressionism"
+],
+"fact": "By 1906 Monet had dropped the bridge and the shoreline. The surface of the pond fills the whole canvas.",
+"alias": [
+"water lilies",
+"water lily pond",
+"water lily",
+"nympheas",
+"lily pond"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "lily",
+"img": "ea36"
+},
+{
+"title": "Arrival of the Normandy Train, Gare Saint-Lazare",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1877",
+"cats": [
+"impressionism"
+],
+"fact": "One of about a dozen paintings of the Saint-Lazare station. Legend says Monet had trains held so the station would fill with steam.",
+"alias": [
+"arrival of the normandy train",
+"gare saint lazare",
+"saint lazare station"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "4822"
+},
+{
+"title": "Waterloo Bridge, Sunlight Effect",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1903",
+"cats": [
+"impressionism"
+],
+"fact": "Monet started his London series on the spot, then spent years finishing the canvases back at his studio in Giverny.",
+"alias": [
+"waterloo bridge"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "waterloo",
+"img": "9e35"
+},
+{
+"title": "Houses of Parliament, London",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1900–01",
+"cats": [
+"impressionism"
+],
+"fact": "Monet painted Parliament from a terrace of St Thomas’ Hospital across the Thames, often as the sun set behind it.",
+"alias": [
+"houses of parliament",
+"parliament",
+"the houses of parliament"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "0caa"
+},
+{
+"title": "Chrysanthemums",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1881–82",
+"cats": [
+"impressionism"
+],
+"fact": "Renoir said flowers let him experiment boldly with color, without the risk of ruining a portrait.",
+"alias": [
+"vase of chrysanthemums"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "bcd9"
+},
+{
+"title": "Auvers, Panoramic View",
+"artist": "Paul Cézanne",
+"life": "French, 1839–1906",
+"date": "1873–75",
+"cats": [
+"impressionism"
+],
+"fact": "Cézanne painted this while working beside Camille Pissarro, who taught him to paint outdoors.",
+"alias": [
+"auvers",
+"panoramic view of auvers"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "ba22"
+},
+{
+"title": "The Millinery Shop",
+"artist": "Edgar Degas",
+"life": "French, 1834–1917",
+"date": "1879–86",
+"cats": [
+"impressionism"
+],
+"fact": "Degas made a whole series of Paris hat-shop scenes. Here the hats get more attention than the woman.",
+"alias": [
+"millinery shop",
+"the milliners",
+"at the milliners"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "ec11"
+},
+{
+"title": "Henri Degas and His Niece Lucie Degas (The Artist’s Uncle and Cousin)",
+"artist": "Edgar Degas",
+"life": "French, 1834–1917",
+"date": "1875–76",
+"cats": [
+"impressionism"
+],
+"fact": "Degas painted his uncle and young cousin in Naples, both in mourning black after the death of Lucie’s father.",
+"alias": [
+"henri degas and his niece lucie degas",
+"the artists uncle and cousin",
+"artists uncle and cousin",
+"henri degas and his niece"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "d82c"
+},
+{
+"title": "Woman Reading",
+"artist": "Édouard Manet",
+"life": "French, 1832–1883",
+"date": "1880–82",
+"cats": [
+"impressionism"
+],
+"fact": "Painted near the end of Manet’s life, it shows a woman in a café holding up an illustrated journal on a stick.",
+"alias": [
+"la lecture",
+"reading"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "2e6e"
+},
+{
+"title": "The Beach at Sainte-Adresse",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1867",
+"cats": [
+"impressionism"
+],
+"fact": "Sainte-Adresse is near Le Havre, where Monet grew up and first learned to paint outdoors.",
+"alias": [
+"beach at sainte adresse",
+"sainte adresse"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "cc2c"
+},
+{
+"title": "Water Lily Pond",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1900",
+"cats": [
+"impressionism"
+],
+"fact": "That’s the Japanese-style footbridge Monet built over the pond in his Giverny garden.",
+"alias": [
+"water lilies",
+"water lily pond",
+"water lily",
+"nympheas",
+"lily pond",
+"japanese footbridge",
+"the japanese bridge",
+"japanese bridge"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "lily",
+"img": "ff35"
+},
+{
+"title": "Stacks of Wheat (End of Day, Autumn)",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1890–91",
+"cats": [
+"impressionism"
+],
+"fact": "Monet worked on several of these canvases at once, switching to a new one whenever the light changed.",
+"alias": [
+"stacks of wheat",
+"stack of wheat",
+"haystacks",
+"haystack",
+"wheatstacks",
+"grainstacks"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "wheat",
+"img": "3b9f"
+},
+{
+"title": "Two Sisters (On the Terrace)",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1881",
+"cats": [
+"impressionism"
+],
+"fact": "Painted on the terrace of the Restaurant Fournaise at Chatou. The two models weren’t actually sisters.",
+"alias": [
+"two sisters",
+"on the terrace"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "d9d3"
+},
+{
+"title": "Woman at the Piano",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1875–76",
+"cats": [
+"impressionism"
+],
+"fact": "Renoir returned to piano players often, most famously in Young Girls at the Piano (1892).",
+"alias": [
+"woman playing the piano",
+"at the piano"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "fb68"
+},
+{
+"title": "Irises",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1914–17",
+"cats": [
+"impressionism"
+],
+"fact": "A late close-up of Monet’s Giverny garden. Cataracts were changing how he saw color by then.",
+"alias": [
+"iris",
+"irises at giverny"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "846c"
+},
+{
+"title": "Young Spartan Girls Challenging Boys",
+"artist": "Edgar Degas",
+"life": "French, 1834–1917",
+"date": "c. 1860",
+"cats": [
+"impressionism"
+],
+"fact": "An early history painting from before Degas turned to dancers. Another version hangs in the National Gallery, London.",
+"alias": [
+"young spartans",
+"young spartans exercising",
+"spartan girls challenging boys"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "d705"
+},
+{
+"title": "Sandvika, Norway",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1895",
+"cats": [
+"impressionism"
+],
+"fact": "Monet traveled to Norway in the winter of 1895 to visit his stepson and painted the snowy village of Sandvika near Oslo.",
+"alias": [
+"sandvika"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "f558"
+},
+{
+"title": "Yellow Dancers (In the Wings)",
+"artist": "Edgar Degas",
+"life": "French, 1834–1917",
+"date": "1874–76",
+"cats": [
+"impressionism"
+],
+"fact": "Ballet was Degas’s favorite subject. He was fascinated by what happened backstage as much as by the performance.",
+"alias": [
+"yellow dancers",
+"dancers in the wings",
+"in the wings"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "72f4"
+},
+{
+"title": "Étretat: The Beach and the Falaise d’Amont",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1885",
+"cats": [
+"impressionism"
+],
+"fact": "The cliffs and rock arches at Étretat, on the Normandy coast, drew Monet back again and again.",
+"alias": [
+"etretat",
+"the beach at etretat",
+"falaise d amont"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "420c"
+},
+{
+"title": "Rocks at Port-Goulphar, Belle-Île",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1886",
+"cats": [
+"impressionism"
+],
+"fact": "Monet worked through Atlantic storms on Belle-Île, a rugged island off the coast of Brittany.",
+"alias": [
+"rocks at port goulphar",
+"belle ile",
+"port goulphar"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "1907"
+},
+{
+"title": "Paris Street; Rainy Day",
+"artist": "Gustave Caillebotte",
+"life": "French, 1848–1894",
+"date": "1877",
+"cats": [
+"impressionism"
+],
+"fact": "It shows the brand-new boulevards of Baron Haussmann’s Paris. Caillebotte was wealthy and helped pay for the Impressionist exhibitions.",
+"alias": [
+"paris street rainy day",
+"paris street",
+"rainy day",
+"rue de paris temps de pluie"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "3484"
+},
+{
+"title": "Fishing in Spring, the Pont de Clichy (Asnières)",
+"artist": "Vincent van Gogh",
+"life": "Dutch, 1853–1890",
+"date": "1887",
+"cats": [
+"impressionism"
+],
+"fact": "Painted during Van Gogh’s two years in Paris, when the Impressionists brightened his palette.",
+"alias": [
+"fishing in spring",
+"pont de clichy",
+"the pont de clichy"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "dbdb"
+},
+{
+"title": "Ballet at the Paris Opéra",
+"artist": "Edgar Degas",
+"life": "French, 1834–1917",
+"date": "1877",
+"cats": [
+"impressionism"
+],
+"fact": "Degas often drew in pastel on top of a monotype print. The view is from the orchestra seats, with musicians’ instruments in the foreground.",
+"alias": [
+"ballet at the paris opera",
+"ballet at the opera",
+"the ballet"
+],
+"medium": "Pastel over monotype on paper",
+"museum": "The Art Institute of Chicago",
+"img": "f0a9"
+},
+{
+"title": "Water Lily Pond",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1917–19",
+"cats": [
+"impressionism"
+],
+"fact": "Monet painted about 250 canvases of his lily pond, working on them for the last three decades of his life.",
+"alias": [
+"water lilies",
+"water lily pond",
+"water lily",
+"nympheas",
+"lily pond"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "lily",
+"img": "48ea"
+},
+{
+"title": "Stack of Wheat",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1890–91",
+"cats": [
+"impressionism"
+],
+"fact": "Stacks like this stored the harvest through winter. Monet painted them in snow, frost and summer haze.",
+"alias": [
+"stacks of wheat",
+"stack of wheat",
+"haystacks",
+"haystack",
+"wheatstacks",
+"grainstacks"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "wheat",
+"img": "f6d7"
+},
+{
+"title": "Waterloo Bridge, Gray Weather",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1900",
+"cats": [
+"impressionism"
+],
+"fact": "Monet made more than 40 views of Waterloo Bridge, often in fog and smoke from London’s factories.",
+"alias": [
+"waterloo bridge"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "waterloo",
+"img": "7535"
+},
+{
+"title": "Stacks of Wheat (End of Summer)",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1890–91",
+"cats": [
+"impressionism"
+],
+"fact": "When Monet showed the wheat stacks in Paris in 1891, the series was a great success and established his reputation.",
+"alias": [
+"stacks of wheat",
+"stack of wheat",
+"haystacks",
+"haystack",
+"wheatstacks",
+"grainstacks"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"series": "wheat",
+"img": "3e78"
+},
+{
+"title": "Calf’s Head and Ox Tongue",
+"artist": "Gustave Caillebotte",
+"life": "French, 1848–1894",
+"date": "c. 1882",
+"cats": [
+"impressionism"
+],
+"fact": "Caillebotte was a surprising figure: painter, wealthy collector, yacht designer and stamp collector. Here he paints a butcher’s display.",
+"alias": [
+"calfs head and ox tongue",
+"calf s head and ox tongue"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "e9e1"
+},
+{
+"title": "The Petite Creuse River",
+"artist": "Claude Monet",
+"life": "French, 1840–1926",
+"date": "1889",
+"cats": [
+"impressionism"
+],
+"fact": "Monet painted a series in the Creuse valley in 1889. When spring arrived too soon for one picture, he paid to have the new leaves stripped off an oak tree.",
+"alias": [
+"petite creuse river",
+"the creuse",
+"creuse"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "f3ee"
+},
+{
+"title": "The Place du Havre, Paris",
+"artist": "Camille Pissarro",
+"life": "French, 1830–1903",
+"date": "1893",
+"cats": [
+"impressionism"
+],
+"fact": "An eye infection kept Pissarro indoors in his later years, so he painted busy Paris streets from hotel windows.",
+"alias": [
+"place du havre",
+"the place du havre"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "3d63"
+},
+{
+"title": "Young Woman Sewing",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1879",
+"cats": [
+"impressionism"
+],
+"fact": "As a teenager Renoir worked in a porcelain factory painting flowers on plates, and his love of flowers stayed with him.",
+"alias": [
+"woman sewing",
+"girl sewing"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "0dcf"
+},
+{
+"title": "Alfred Sisley",
+"artist": "Pierre-Auguste Renoir",
+"life": "French, 1841–1919",
+"date": "1876",
+"cats": [
+"impressionism"
+],
+"fact": "Renoir and Sisley met as art students in Paris in the early 1860s, along with Monet. This is Renoir’s portrait of his friend.",
+"alias": [
+"portrait of alfred sisley",
+"sisley",
+"portrait of sisley"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "40e8"
+},
+{
+"title": "Édouard Manet",
+"artist": "Henri Fantin-Latour",
+"life": "French, 1836–1904",
+"date": "1867",
+"cats": [
+"impressionism"
+],
+"fact": "Fantin-Latour and Manet were close friends. A few years later he painted Manet again, at his easel and surrounded by younger artists, in A Studio at Les Batignolles.",
+"alias": [
+"portrait of edouard manet",
+"portrait of manet",
+"manet"
+],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "7252"
+},
+{
+"title": "Resting",
+"artist": "Antonio Mancini",
+"life": "Italian, 1852–1930",
+"date": "c. 1887",
+"cats": [
+"impressionism"
+],
+"fact": "Mancini met Degas and Manet in Paris in the 1870s. Sargent admired him so much he called him the greatest living painter.",
+"alias": [],
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"img": "0cfe"
+},
+{
+"title": "Rinaldo and Armida in Her Garden",
+"artist": "Giovanni Battista Tiepolo",
+"life": "Italian, 1696–1770",
+"date": "1742–45",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "One of a set of scenes from Torquato Tasso’s epic poem Jerusalem Delivered, painted to decorate a room in a Venetian palace.",
+"alias": [
+"rinaldo and armida",
+"rinaldo and armida in her garden"
+],
+"series": "rinaldo",
+"img": "e49f"
+},
+{
+"title": "Armida Abandoned by Rinaldo",
+"artist": "Giovanni Battista Tiepolo",
+"life": "Italian, 1696–1770",
+"date": "1742–45",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "From the same Tasso series: the knight Rinaldo leaves the sorceress Armida to return to the Crusade.",
+"alias": [
+"rinaldo and armida",
+"armida abandoned"
+],
+"series": "rinaldo",
+"img": "910c"
+},
+{
+"title": "Rinaldo and the Magus of Ascalon",
+"artist": "Giovanni Battista Tiepolo",
+"life": "Italian, 1696–1770",
+"date": "1742–45",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Another scene from Tiepolo’s Tasso series, in which a wise magician sets Rinaldo back on the path of duty.",
+"alias": [
+"rinaldo and armida",
+"rinaldo and the magus",
+"magus of ascalon"
+],
+"series": "rinaldo",
+"img": "5170"
+},
+{
+"title": "Virgin and Child with Saints Dominic and Hyacinth",
+"artist": "Giovanni Battista Tiepolo",
+"life": "Italian, 1696–1770",
+"date": "1730–35",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Tiepolo made the Virgin and Child seem to appear on the altar in a vision, wrapped in golden clouds.",
+"alias": [
+"virgin and child with saints",
+"saints dominic and hyacinth"
+],
+"img": "15a4"
+},
+{
+"title": "Kitchen Still Life",
+"artist": "Paolo Antonio Barbieri",
+"life": "Italian, 1603–1649",
+"date": "c. 1640",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Barbieri was the younger brother of the famous painter Guercino, and specialized in still lifes.",
+"alias": [
+"kitchen still life",
+"still life"
+],
+"img": "ab00"
+},
+{
+"title": "The Resurrection",
+"artist": "Cecco del Caravaggio",
+"life": "Italian, active 1610–1620",
+"date": "1619–20",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Cecco may have been the “boy Francesco” who assisted Caravaggio in his last years in Rome, hence his nickname.",
+"alias": [
+"resurrection"
+],
+"img": "1f63"
+},
+{
+"title": "Annunciation to the Shepherds",
+"artist": "After Jacopo Bassano",
+"life": "Italian, copy made c. 1710",
+"date": "c. 1710",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "A copy of a composition by the 16th-century Venetian Jacopo Bassano, whose rustic scenes of shepherds and animals stayed popular for generations.",
+"alias": [
+"annunciation to the shepherds"
+],
+"img": "e694"
+},
+{
+"title": "Kitchen Scene",
+"artist": "Diego Velázquez",
+"life": "Spanish, 1599–1660",
+"date": "1618–20",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "A bodegón, or kitchen picture, from Velázquez’s youth in Seville. The young African woman at work may have been modeled by an enslaved servant.",
+"alias": [
+"kitchen scene",
+"the kitchen maid",
+"kitchen maid"
+],
+"img": "0f2c"
+},
+{
+"title": "Job",
+"artist": "Spanish painter",
+"life": "Spanish, 17th century",
+"date": "17th century",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "The artist is unknown, but it was probably painted in Seville in the circle of Zurbarán and Velázquez.",
+"alias": [],
+"img": "99fa"
+},
+{
+"title": "Isabella of Bourbon, Wife of Philip IV of Spain",
+"artist": "Workshop of Diego Velázquez",
+"life": "Spanish, 17th century",
+"date": "1627–37",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Isabella, born a French princess, became queen of Spain. She was famously reluctant to sit for painters.",
+"alias": [
+"isabella of bourbon",
+"queen isabella"
+],
+"img": "d2a9"
+},
+{
+"title": "Saint John the Baptist in the Wilderness",
+"artist": "Diego Velázquez",
+"life": "Spanish, 1599–1660",
+"date": "c. 1622",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Long credited to an unknown Seville painter, it is now recognized as the work of the young Velázquez.",
+"alias": [
+"st john the baptist in the wilderness",
+"john the baptist"
+],
+"img": "7685"
+},
+{
+"title": "Portrait of Philip IV",
+"artist": "Workshop of Diego Velázquez",
+"life": "Spanish, 17th century",
+"date": "c. 1632",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Velázquez became court painter to King Philip IV in 1623, and his workshop turned out many versions of the king’s portrait.",
+"alias": [
+"philip iv",
+"king philip iv"
+],
+"img": "40fd"
+},
+{
+"title": "Are They Thinking about the Grape?",
+"artist": "François Boucher",
+"life": "French, 1703–1770",
+"date": "1747",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Boucher’s playful pastoral scenes were copied onto porcelain, tapestries and fans all over 18th-century France.",
+"alias": [
+"are they thinking about the grape",
+"pensent ils au raisin",
+"the grape"
+],
+"img": "91c7"
+},
+{
+"title": "Still Life with Monkey, Fruits, and Flowers",
+"artist": "Jean-Baptiste Oudry",
+"life": "French, 1686–1755",
+"date": "1724",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Oudry later ran the Beauvais tapestry works and was famous for painting the king’s hunting dogs.",
+"alias": [
+"still life with monkey",
+"monkey"
+],
+"img": "dfe2"
+},
+{
+"title": "Still Life with Dead Game, Fruits, and Vegetables in a Market",
+"artist": "Frans Snyders",
+"life": "Flemish, 1579–1657",
+"date": "1614",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Snyders often painted the animals and food in Rubens’s pictures. Here a market stall overflows with game.",
+"alias": [
+"still life with dead game",
+"dead game",
+"market stall"
+],
+"img": "53c2"
+},
+{
+"title": "A Young Lady with a Parrot",
+"artist": "Rosalba Carriera",
+"life": "Italian, 1673–1757",
+"date": "c. 1730",
+"medium": "Pastel on paper",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Carriera was the most celebrated pastel portraitist in Europe, and was admitted to the French Royal Academy in 1720.",
+"alias": [
+"young lady with a parrot",
+"lady with a parrot"
+],
+"img": "2ad8"
+},
+{
+"title": "Penitent Saint Peter",
+"artist": "Jusepe de Ribera",
+"life": "Spanish, active in Italy, 1591–1652",
+"date": "1628–32",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Ribera spent his career in Naples, then ruled by Spain, where he was nicknamed “Lo Spagnoletto,” the little Spaniard.",
+"alias": [
+"st peter",
+"saint peter",
+"penitent st peter"
+],
+"img": "a4d7"
+},
+{
+"title": "The Ecstasy of Saint Francis",
+"artist": "Giovanni Baglione",
+"life": "Italian, 1566–1643",
+"date": "1601",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Baglione borrowed heavily from Caravaggio, then became his bitter rival and sued him for libel in 1603.",
+"alias": [
+"ecstasy of saint francis",
+"ecstasy of st francis"
+],
+"img": "2e05"
+},
+{
+"title": "Melancholia",
+"artist": "Domenico Fetti",
+"life": "Italian, c. 1589–1623",
+"date": "c. 1615",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Surrounded by symbols of learning and the arts, the figure contemplates a skull: earthly achievements fade, and death is certain.",
+"alias": [
+"melancholy"
+],
+"img": "896c"
+},
+{
+"title": "Old Man with a Gold Chain",
+"artist": "Rembrandt van Rijn",
+"life": "Dutch, 1606–1669",
+"date": "c. 1631",
+"medium": "Oil on panel",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Rembrandt painted this in his mid-twenties, around the time he moved from Leiden to Amsterdam.",
+"alias": [
+"old man with gold chain",
+"man with a gold chain"
+],
+"img": "9497"
+},
+{
+"title": "Cupid Chastised",
+"artist": "Bartolomeo Manfredi",
+"life": "Italian, 1582–1622",
+"date": "1613",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Mars punishes Cupid as Venus tries to stop him. Manfredi was one of the leading followers of Caravaggio.",
+"alias": [
+"cupid punished"
+],
+"img": "d922"
+},
+{
+"title": "The Crucifixion",
+"artist": "Francisco de Zurbarán",
+"life": "Spanish, 1598–1664",
+"date": "1627",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "In the dim monastery sacristy where it first hung, Zurbarán’s lifelike Christ was often mistaken for a sculpture.",
+"alias": [
+"crucifixion",
+"christ on the cross"
+],
+"img": "9bf4"
+},
+{
+"title": "Still Life with Game Fowl",
+"artist": "Juan Sánchez Cotán",
+"life": "Spanish, 1560–1627",
+"date": "c. 1600–03",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "Sánchez Cotán helped invent the Spanish still life, then gave up his career to become a lay brother in a Carthusian monastery.",
+"alias": [
+"still life with game fowl",
+"game fowl"
+],
+"img": "73e8"
+},
+{
+"title": "Salome with the Head of Saint John the Baptist",
+"artist": "Guido Reni",
+"life": "Italian, 1575–1642",
+"date": "1639–42",
+"medium": "Oil on canvas",
+"museum": "The Art Institute of Chicago",
+"cats": [
+"baroque"
+],
+"fact": "One of Reni’s last works, painted in the pale, silvery colors of his final years.",
+"alias": [
+"salome",
+"salome with the head of john the baptist"
+],
+"img": "7eaf"
+}
+];
+
+const STAGES = [7, 12, 20, 34, 60, 0];          // tiles across the long side; 0 = full image
+const POINTS = [1000, 750, 500, 300, 150, 75];
+const PER_GAME = 5;
+const HINT_COST = 100;
+
+const $ = id => document.getElementById(id);
+const canvas = $("art"), ctx = canvas.getContext("2d");
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const imgCache = {};
+
+let state = null;
+
+/* ---------- helpers ---------- */
+function norm(s){
+  return s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")
+    .replace(/[’'`]/g,"").replace(/[^a-z0-9 ]+/g," ").replace(/\b(the|a|an)\b/g," ").replace(/\s+/g," ").trim();
+}
+function lev(a,b){
+  const m=a.length,n=b.length; if(!m) return n; if(!n) return m;
+  let prev=Array.from({length:n+1},(_,j)=>j);
+  for(let i=1;i<=m;i++){const cur=[i];for(let j=1;j<=n;j++){cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));}prev=cur;}
+  return prev[n];
+}
+function isMatch(guess,p){
+  const g=norm(guess); if(!g) return false;
+  const names=[p.title,p.title.replace(/\s*\(.*\)\s*$/,""),...p.alias].map(norm);
+  return names.some(n=> n===g || (n.length>=8 && lev(n,g)<=2));
+}
+function seeded(seed){let s=seed>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function shuffle(arr,rand=Math.random){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function todayKey(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
+const SITE_URL="https://out-of-focus-daily.netlify.app/";
+const LAUNCH_DAY=Date.UTC(2026,10,20)/86400000;
+function dayNum(d=new Date()){return Math.round(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);}
+function puzzleNo(){return dayNum()-LAUNCH_DAY+1;}
+const store={get(k,f){try{const v=localStorage.getItem("ofd_"+k);return v?JSON.parse(v):f;}catch(e){return f;}},
+             set(k,v){try{localStorage.setItem("ofd_"+k,JSON.stringify(v));}catch(e){}}};
+function getStats(){
+  const st=store.get("stats",{played:0,streak:0,best:0,last:null});
+  if(st.last!==null && st.last<dayNum()-1) st.streak=0;   // missed a day
+  return st;
+}
+function recordDaily(){
+  const st=getStats(), today=dayNum();
+  if(st.last===today) return st;
+  st.played++; st.streak=(st.last===today-1?st.streak:0)+1; st.best=Math.max(st.best,st.streak); st.last=today;
+  store.set("stats",st); return st;
+}
+function saveDaily(){ if(state&&state.cat==="daily") store.set("daily",{key:todayKey(),state}); }
+function showStreak(){ $("streak").textContent=getStats().streak; }
+function loadImg(code){
+  if(!imgCache[code]){
+    imgCache[code]=new Promise((res,rej)=>{const im=new Image();im.onload=()=>res(im);im.onerror=rej;im.src="images/"+code+".jpg";});
+  }
+  return imgCache[code];
+}
+
+function hintFor(p){
+  if(p.hint) return p.hint;
+  const nat=p.life.split(",")[0]; const y=parseInt((p.date.match(/\d{4}/)||["1800"])[0],10);
+  const c=Math.floor((y-1)/100)+1; return `${nat} · ${c}th century`;
+}
+
+function poolFor(cat){
+  if(cat==="daily"||cat==="all") return PAINTINGS;
+  return PAINTINGS.filter(p=>p.cats.includes(cat));
+}
+
+/* ---------- game setup ---------- */
+function newGame(cat){
+  let pool, rand=Math.random;
+  if(cat==="daily"){
+    const saved=store.get("daily",null);
+    if(saved && saved.key===todayKey() && saved.state && saved.state.order){ state=saved.state; $("hard").checked=!!state.hard; render(); return; }
+    rand=seeded(todayKey()); pool=PAINTINGS.map((_,i)=>i);
+  }
+  else if(cat==="all"){ pool=PAINTINGS.map((_,i)=>i); }
+  else { pool=PAINTINGS.map((p,i)=>p.cats.includes(cat)?i:-1).filter(i=>i>=0); }
+  const order=[], seen=new Set(), byArtist={};
+  for(const i of shuffle(pool,rand)){
+    const q=PAINTINGS[i];
+    if(q.series && seen.has(q.series)) continue;
+    if((byArtist[q.artist]||0)>=2) continue;
+    order.push(i); if(q.series) seen.add(q.series); byArtist[q.artist]=(byArtist[q.artist]||0)+1;
+    if(order.length===PER_GAME) break;
+  }
+  state={cat,order,idx:0,score:0,results:[],hard:$("hard").checked,round:freshRound()};
+  saveDaily(); render();
+}
+function freshRound(){return {stage:0,hint:false,choices:null,done:false,won:false,points:0,wrong:[]};}
+function cur(){return PAINTINGS[state.order[state.idx]];}
+
+/* ---------- drawing ---------- */
+let drawToken=0, shownTiles=null;
+function fitSize(im){
+  const box=Math.min(560, Math.max(260, document.querySelector(".frame-col").clientWidth-36));
+  const r=im.width/im.height;
+  if(r>=1) return [box, Math.round(box/r)];
+  const h=Math.round(box*1.1); return [Math.min(box,Math.round(h*r)), h];
+}
+function drawTiles(im,tiles,gray){
+  const W=canvas.width,H=canvas.height;
+  if(!tiles){ ctx.imageSmoothingEnabled=true; ctx.filter="none"; ctx.drawImage(im,0,0,W,H); return; }
+  const long=Math.max(W,H), cell=long/tiles;
+  const cols=Math.max(1,Math.round(W/cell)), rows=Math.max(1,Math.round(H/cell));
+  const off=document.createElement("canvas"); off.width=cols; off.height=rows;
+  const o=off.getContext("2d"); o.imageSmoothingEnabled=true; o.imageSmoothingQuality="high";
+  // step down for a better average colour per tile
+  let src=im, w=im.width, h=im.height;
+  while(w/2>cols*2 && h/2>rows*2){
+    const t=document.createElement("canvas"); w=Math.round(w/2); h=Math.round(h/2); t.width=w; t.height=h;
+    const tc=t.getContext("2d"); tc.imageSmoothingQuality="high"; tc.drawImage(src,0,0,w,h); src=t;
+  }
+  o.drawImage(src,0,0,cols,rows);
+  const data=o.getImageData(0,0,cols,rows).data;
+  const cw=W/cols, ch=H/rows, grout=cw>=9 ? Math.max(1,Math.min(3,cw*0.06)) : 0;
+  ctx.fillStyle="#0d0f0e"; ctx.fillRect(0,0,W,H);
+  for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+    const k=(y*cols+x)*4; let r=data[k],g=data[k+1],b=data[k+2];
+    if(gray){const l=Math.round(.299*r+.587*g+.114*b); r=g=b=l;}
+    ctx.fillStyle=`rgb(${r},${g},${b})`;
+    const x0=Math.round(x*cw), y0=Math.round(y*ch), x1=Math.round((x+1)*cw), y1=Math.round((y+1)*ch);
+    ctx.fillRect(x0+grout/2, y0+grout/2, x1-x0-grout, y1-y0-grout);
+  }
+}
+async function paint(){
+  const token=++drawToken, p=cur(), r=state.round;
+  $("loading").hidden=false;
+  let im; try{ im=await loadImg(p.img); }catch(e){ $("loading").textContent="This image didn’t load. Try the next painting."; return; }
+  if(token!==drawToken) return;
+  $("loading").hidden=true;
+  const [w,h]=fitSize(im);
+  if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;shownTiles=null;}
+  const target = r.done ? 0 : STAGES[r.stage];
+  const gray = state.hard && !r.done && r.stage<3;
+  const start = shownTiles;
+  shownTiles = target;
+  if(reduceMotion || start===null || start===target || start===0){ drawTiles(im,target,gray); return; }
+  // animate the tile count (log scale) from start toward target
+  const a=Math.log(start), b=Math.log(target||Math.max(w,h)), t0=performance.now(), dur=520;
+  const step=now=>{
+    if(token!==drawToken) return;
+    const t=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-t,3);
+    if(t>=1){ drawTiles(im,target,gray); return; }
+    drawTiles(im,Math.round(Math.exp(a+(b-a)*e)),gray);
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+  // warm the next image
+  const nxt=state.order[state.idx+1]; if(nxt!==undefined) loadImg(PAINTINGS[nxt].img);
+}
+
+/* ---------- actions ---------- */
+function available(){
+  const r=state.round; let pts=POINTS[r.stage];
+  if(r.choices) pts=Math.round(pts/2);
+  if(r.hint) pts=Math.max(0,pts-HINT_COST);
+  return pts;
+}
+function submitGuess(text){
+  const r=state.round; if(r.done) return;
+  const p=cur();
+  if(!text.trim()){ setFeedback("Type a title first, or press Sharpen it.","bad"); return; }
+  if(isMatch(text,p)){ finishRound(true); return; }
+  r.wrong.push(text);
+  if(r.stage>=STAGES.length-1){ finishRound(false); return; }
+  r.stage++; saveDaily();
+  setFeedback(`“${text}” isn’t it. The painting sharpens…`,"bad");
+  $("guessInput").value=""; hideSuggest();
+  if(r.choices) r.choices=r.choices.filter(c=>norm(c)!==norm(text));
+  render();
+}
+function sharpen(){
+  const r=state.round; if(r.done) return;
+  if(r.stage>=STAGES.length-1){ finishRound(false); return; }
+  r.stage++; saveDaily(); setFeedback(""); render();
+}
+function useHint(){ const r=state.round; if(r.done||r.hint) return; r.hint=true; saveDaily(); render(); }
+function showChoices(){
+  const r=state.round; if(r.done||r.choices) return;
+  const p=cur();
+  const others=[];
+  for(const q of shuffle(poolFor(state.cat)).concat(shuffle(PAINTINGS))){
+    if(q===p || q.title===p.title || (p.series && q.series===p.series) || others.includes(q.title) || r.wrong.some(w=>isMatch(w,q))) continue;
+    others.push(q.title); if(others.length===3) break;
+  }
+  r.choices=shuffle([p.title,...others]);
+  saveDaily(); render();
+}
+function finishRound(won){
+  const r=state.round; r.done=true; r.won=won; r.points=won?available():0;
+  state.score+=r.points;
+  state.results.push({img:cur().img,title:cur().title,display:cur().display,won,stage:r.stage,points:r.points});
+  setFeedback(""); hideSuggest();
+  saveDaily(); render();
+}
+function next(){
+  if(state.idx<state.order.length-1){ state.idx++; state.round=freshRound(); shownTiles=null; saveDaily(); render(); $("guessInput").focus({preventScroll:true}); }
+  else { state.finished=true; if(state.cat==="daily") recordDaily(); saveDaily(); render(); }
+}
+function setFeedback(msg,kind){ const f=$("feedback"); f.textContent=msg; f.className="feedback"+(kind?" "+kind:""); }
+
+/* ---------- autocomplete ---------- */
+let sugIdx=-1;
+function updateSuggest(){
+  const q=norm($("guessInput").value), ul=$("suggest");
+  if(q.length<2){ hideSuggest(); return; }
+  const hits=poolFor(state.cat).filter(p=>[p.title,...p.alias].some(n=>norm(n).includes(q))).map(p=>p.title).filter((t,i,a)=>a.indexOf(t)===i).slice(0,6);
+  if(!hits.length){ hideSuggest(); return; }
+  ul.innerHTML=hits.map((t,i)=>`<li role="option" id="sg${i}" aria-selected="false">${t}</li>`).join("");
+  ul.hidden=false; sugIdx=-1;
+  [...ul.children].forEach(li=>li.addEventListener("mousedown",e=>{e.preventDefault();$("guessInput").value=li.textContent;hideSuggest();submitGuess(li.textContent);}));
+}
+function hideSuggest(){ $("suggest").hidden=true; sugIdx=-1; }
+$("guessInput").addEventListener("input",updateSuggest);
+$("guessInput").addEventListener("blur",()=>setTimeout(hideSuggest,120));
+$("guessInput").addEventListener("keydown",e=>{
+  const ul=$("suggest"), items=[...ul.children];
+  if(ul.hidden||!items.length) return;
+  if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+    e.preventDefault(); sugIdx=(sugIdx+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;
+    items.forEach((li,i)=>li.setAttribute("aria-selected",i===sugIdx));
+  } else if(e.key==="Enter" && sugIdx>=0){ e.preventDefault(); $("guessInput").value=items[sugIdx].textContent; hideSuggest(); submitGuess($("guessInput").value); }
+  else if(e.key==="Escape"){ hideSuggest(); }
+});
+$("guessForm").addEventListener("submit",e=>{e.preventDefault();submitGuess($("guessInput").value);});
+$("guessBtn").addEventListener("click",()=>submitGuess($("guessInput").value));
+$("sharpenBtn").addEventListener("click",sharpen);
+$("hintBtn").addEventListener("click",useHint);
+$("choicesBtn").addEventListener("click",showChoices);
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===c)); shownTiles=null; newGame(c.dataset.cat);
+}));
+$("hard").addEventListener("change",()=>{ if(state){ state.hard=$("hard").checked; shownTiles=null; render(); }});
+let rz; addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{shownTiles=null;paint();},150);});
+
+/* ---------- render ---------- */
+function tierClass(res){ if(!res.won) return "l"; return res.stage===0?"w1":res.stage<=2?"w2":"w3"; }
+function emoji(res){ if(!res.won) return "⬛"; return res.stage===0?"🟩":res.stage<=2?"🟨":"🟧"; }
+
+function render(){
+  const r=state.round, p=cur(), n=state.order.length;
+  $("roundNum").textContent=`${Math.min(state.idx+1,n)}/${n}`;
+  $("score").textContent=state.score.toLocaleString();
+
+  // progress strip
+  $("strip").innerHTML=state.order.map((_,i)=>{
+    const res=state.results[i]; return `<i class="${res?tierClass(res):(i===state.idx&&!state.finished?"cur":"")}"></i>`;
+  }).join("");
+
+  // point ladder
+  $("ladder").innerHTML=POINTS.map((pt,i)=>{
+    const cls = r.done ? (i===r.stage?"now":"past") : (i===r.stage?"now":i<r.stage?"past":"");
+    return `<span class="rung ${cls}" title="View ${i+1}">${pt}</span>`;
+  }).join("");
+
+  if(state.finished){ renderSummary(); paint(); return; }
+
+  $("play").hidden=r.done; $("reveal").hidden=!r.done; $("summary").hidden=true;
+
+  if(!r.done){
+    const pts=available();
+    document.querySelector(".prompt").innerHTML=`What is this painting? <em>${pts.toLocaleString()} pts</em> if you get it now.`;
+    $("hintBtn").disabled=r.hint;
+    $("choicesBtn").disabled=!!r.choices;
+    $("sharpenBtn").textContent = r.stage>=STAGES.length-1 ? "Give up" : "Sharpen it";
+    $("hintLine").hidden=!r.hint; $("hintLine").textContent=r.hint?`Hint: ${hintFor(p)}`:"";
+    const ch=$("choices"); ch.hidden=!r.choices;
+    if(r.choices){
+      ch.innerHTML=r.choices.map(t=>`<button class="choice" type="button">${t}</button>`).join("");
+      [...ch.children].forEach(b=>b.addEventListener("click",()=>submitGuess(b.textContent)));
+    }
+    $("guessForm").hidden=!!r.choices; $("guessBtn").hidden=!!r.choices;
+  } else {
+    const last=state.idx===state.order.length-1;
+    $("reveal").innerHTML=`
+      <article class="label">
+        <div class="verdict ${r.won?"win":"lose"}">${r.won?`Correct · +${r.points.toLocaleString()} points at view ${r.stage+1}`:"Not this time"}</div>
+        <div class="artist">${p.artist} <span>(${p.life})</span></div>
+        <h2>${p.display||p.title}, <span>${p.date}</span></h2>
+        <div class="meta">${p.medium}${p.museum?`<br>${p.museum}`:""}</div>
+        <p class="fact">${p.fact}</p>
+        <button class="btn" id="nextBtn" type="button">${last?"See my results":"Next painting"}</button>
+      </article>`;
+    $("nextBtn").addEventListener("click",next);
+    $("nextBtn").focus({preventScroll:true});
+  }
+  paint();
+}
+
+let cdTimer=null;
+function countdown(){
+  const el=$("nextIn"); if(!el){clearInterval(cdTimer);return;}
+  const now=new Date(), mid=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1);
+  let t=Math.max(0,Math.floor((mid-now)/1000));
+  if(t===0){ clearInterval(cdTimer); el.parentNode.innerHTML='A new puzzle is ready. <a href="#" id="newDay" style="color:var(--gilt)">Play it now</a>'; $("newDay").addEventListener("click",e=>{e.preventDefault();shownTiles=null;newGame("daily");}); return; }
+  const h=Math.floor(t/3600), m=Math.floor(t%3600/60), sec=t%60;
+  el.textContent=`${h}:${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+}
+function renderSummary(){
+  $("play").hidden=true; $("reveal").hidden=true; const s=$("summary"); s.hidden=false;
+  const max=state.order.length*POINTS[0], daily=state.cat==="daily";
+  const catName=document.querySelector(`.chip[data-cat="${state.cat}"]`).textContent;
+  const grid=state.results.map(emoji).join("");
+  const st=getStats();
+  const head=daily?`Out of Focus Daily #${puzzleNo()}`:`Out of Focus Daily · ${catName}`;
+  const streakTxt=daily&&st.streak>1?`  🔥${st.streak}`:"";
+  const share=`${head}${state.hard?" · hard":""}\n${grid}  ${state.score.toLocaleString()}/${max.toLocaleString()}${streakTxt}\n${SITE_URL}`;
+  const solved=state.results.filter(x=>x.won).length;
+  const canNative=!!navigator.share && matchMedia("(pointer:coarse)").matches;
+  s.innerHTML=`
+    <h2>You named <em>${solved} of ${state.results.length}</em></h2>
+    <ol>${state.results.map(x=>`<li><span>${x.display||x.title}</span><span>${x.won?`view ${x.stage+1} · ${x.points}`:"missed"}</span></li>`).join("")}</ol>
+    ${daily?`<div class="stats">
+      <div><strong>${st.played}</strong><span>Played</span></div>
+      <div><strong>${st.streak}</strong><span>Streak</span></div>
+      <div><strong>${st.best}</strong><span>Best streak</span></div></div>
+    <div class="nextpuzzle">Next puzzle in <strong id="nextIn"></strong></div>`:""}
+    <div class="sharebox" id="shareText">${share.replace(/\n/g,"<br>")}</div>
+    <div class="row">
+      <button class="btn" id="copyBtn" type="button">${canNative?"Share result":"Copy result"}</button>
+      <button class="btn ghost" id="againBtn" type="button">${daily?"Keep playing (Everything)":"Play another five"}</button>
+    </div>
+    <div class="feedback" id="copyMsg" aria-live="polite"></div>`;
+  $("copyBtn").addEventListener("click",async()=>{
+    if(canNative){ try{ await navigator.share({text:share}); return; }catch(e){ if(e.name==="AbortError") return; } }
+    try{ await navigator.clipboard.writeText(share); $("copyMsg").textContent="Copied. Paste it into a text, chat or post."; }
+    catch(e){ const rng=document.createRange(); rng.selectNodeContents($("shareText")); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(rng); $("copyMsg").textContent="Selected. Press Ctrl+C or ⌘C to copy."; }
+  });
+  $("againBtn").addEventListener("click",()=>{
+    const cat=state.cat==="daily"?"all":state.cat;
+    document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.cat===cat));
+    shownTiles=null; newGame(cat);
+  });
+  $("score").textContent=state.score.toLocaleString();
+  showStreak();
+  clearInterval(cdTimer); if(daily){ countdown(); cdTimer=setInterval(countdown,1000); }
+}
+
+$("count").textContent=PAINTINGS.length;
+showStreak();
+/* ---------- boot (keeps a game in progress across republish) ---------- */
+function start(data){
+  if(data && data.state && data.state.order){
+    state=data.state; $("hard").checked=!!state.hard;
+    document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.cat===state.cat));
+    render();
+  } else newGame("daily");
+}
+window.claude?.hot?.snapshot?.(()=>({state}));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+</body>
+</html>
