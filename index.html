@@ -135,6 +135,7 @@ canvas#art{display:block;max-width:100%;height:auto;image-rendering:pixelated}
   font-family:var(--display);font-style:italic;font-size:17px;
 }
 .choice:hover{border-color:var(--gilt)}
+.choice .by{font-style:normal;font-family:var(--body, inherit);font-size:.82em;opacity:.7}
 
 .feedback{min-height:22px;font-size:14px;color:var(--muted)}
 .feedback.bad{color:#e48a80}
@@ -2116,12 +2117,12 @@ function useHint(){ const r=state.round; if(r.done||r.hint) return; r.hint=true;
 function showChoices(){
   const r=state.round; if(r.done||r.choices) return;
   const p=cur();
-  const others=[];
+  const others=[], by={[p.title]:p.artist};
   for(const q of shuffle(poolFor(state.cat)).concat(shuffle(PAINTINGS))){
     if(q===p || q.title===p.title || (p.series && q.series===p.series) || others.includes(q.title) || r.wrong.some(w=>isMatch(w,q))) continue;
-    others.push(q.title); if(others.length===3) break;
+    others.push(q.title); by[q.title]=q.artist; if(others.length===3) break;
   }
-  r.choices=shuffle([p.title,...others]);
+  r.choices=shuffle([p.title,...others]); r.choiceBy=by;
   saveDaily(); render();
 }
 function finishRound(won){
@@ -2204,8 +2205,9 @@ function render(){
     $("hintLine").hidden=!r.hint; $("hintLine").textContent=r.hint?`Hint: ${hintFor(p)}`:"";
     const ch=$("choices"); ch.hidden=!r.choices;
     if(r.choices){
-      ch.innerHTML=r.choices.map(t=>`<button class="choice" type="button">${t}</button>`).join("");
-      [...ch.children].forEach(b=>b.addEventListener("click",()=>submitGuess(b.textContent)));
+      const artistOf=t=>(r.choiceBy&&r.choiceBy[t])||(PAINTINGS.find(q=>q.title===t)||{}).artist||"";
+      ch.innerHTML=r.choices.map((t,i)=>{const a=artistOf(t);return `<button class="choice" type="button" data-i="${i}">${t}${a?` <span class="by">(${a})</span>`:""}</button>`;}).join("");
+      [...ch.children].forEach(b=>b.addEventListener("click",()=>submitGuess(r.choices[+b.dataset.i])));
     }
     $("guessForm").hidden=!!r.choices; $("guessBtn").hidden=!!r.choices;
   } else {
