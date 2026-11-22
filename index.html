@@ -209,6 +209,7 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
     <button class="chip" data-cat="famous" aria-pressed="false">Famous 50</button>
     <button class="chip" data-cat="renaissance" aria-pressed="false">Renaissance</button>
     <button class="chip" data-cat="baroque" aria-pressed="false">Baroque</button>
+    <button class="chip" data-cat="romanticism" aria-pressed="false">Romanticism</button>
     <button class="chip" data-cat="impressionism" aria-pressed="false">Impressionism</button>
     <button class="chip" data-cat="postimpressionism" aria-pressed="false">Post-Impressionism</button>
     <button class="chip" data-cat="all" aria-pressed="false">Everything</button>
@@ -252,7 +253,7 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
     </section>
   </main>
 
-  <footer><span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the National Gallery of Art in Washington and the Mauritshuis, and from Wikimedia Commons.
+  <footer><span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the Metropolitan Museum of Art, the National Gallery of Art in Washington, the Smithsonian American Art Museum and the Mauritshuis, and from Wikimedia Commons, which hosts photographs of public-domain works from museums including the Louvre, the Prado, the Uffizi, the National Gallery in London and the Rijksmuseum.
     <nav class="footlinks"><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
 </div>
 
@@ -3056,7 +3057,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "Hamburger Kunsthalle, Hamburg",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "We see the man only from behind, a device Friedrich used often so that viewers share the figure’s view.",
 "alias": [
@@ -3076,7 +3078,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "Musée du Louvre, Paris",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "Based on a real 1816 shipwreck: of about 150 people set adrift on a raft, only 15 survived. Géricault interviewed survivors and built a model of the raft.",
 "alias": [
@@ -3095,7 +3098,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "Musée du Louvre, Paris",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "Painted to mark the July Revolution of 1830 in Paris. The woman with the flag is Liberty herself, a forerunner of Marianne, the symbol of France.",
 "alias": [
@@ -3113,7 +3117,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "National Gallery, London",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "Barely noticed in London at first, it won a gold medal at the Paris Salon of 1824 and inspired a generation of French landscape painters.",
 "alias": [
@@ -3132,7 +3137,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "National Gallery, London",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "A ghostly old warship that fought at Trafalgar is towed by a smoky steam tug to be broken up for scrap. It appears on the Bank of England’s £20 note.",
 "alias": [
@@ -3150,7 +3156,8 @@ const PAINTINGS = [
 "medium": "Oil on canvas",
 "museum": "Museo del Prado, Madrid",
 "cats": [
-"famous"
+"famous",
+"romanticism"
 ],
 "fact": "French soldiers execute Spanish civilians after an uprising against Napoleon’s army. The man in white raises his arms like a figure on a cross.",
 "alias": [
@@ -3242,6 +3249,386 @@ const PAINTINGS = [
 "lovers"
 ],
 "img": "0cf7"
+},
+{
+"title": "Two Men Contemplating the Moon",
+"artist": "Caspar David Friedrich",
+"life": "German, 1774–1840",
+"date": "c. 1825–30",
+"medium": "Oil on canvas",
+"museum": "The Metropolitan Museum of Art, New York",
+"cats": [
+"romanticism"
+],
+"fact": "Friedrich painted several versions of this scene. Samuel Beckett said one of them inspired his play Waiting for Godot.",
+"alias": [
+"two men contemplating the moon",
+"man and woman contemplating the moon",
+"contemplating the moon"
+],
+"img": "e0ca"
+},
+{
+"title": "The Monk by the Sea",
+"artist": "Caspar David Friedrich",
+"life": "German, 1774–1840",
+"date": "1808–10",
+"medium": "Oil on canvas",
+"museum": "Alte Nationalgalerie, Berlin",
+"cats": [
+"romanticism"
+],
+"fact": "Friedrich first included boats on the sea, then painted them out, leaving one tiny figure facing a vast emptiness.",
+"alias": [
+"monk by the sea",
+"the monk by the sea",
+"der monch am meer"
+],
+"img": "0239"
+},
+{
+"title": "Chalk Cliffs on Rügen",
+"artist": "Caspar David Friedrich",
+"life": "German, 1774–1840",
+"date": "c. 1818",
+"medium": "Oil on canvas",
+"museum": "Museum Oskar Reinhart, Winterthur",
+"cats": [
+"romanticism"
+],
+"fact": "Probably painted after Friedrich’s honeymoon on the Baltic island of Rügen. The three figures may be the artist, his wife and his brother.",
+"alias": [
+"chalk cliffs on rugen",
+"chalk cliffs",
+"white cliffs on rugen"
+],
+"img": "ec14"
+},
+{
+"title": "The Sea of Ice",
+"artist": "Caspar David Friedrich",
+"life": "German, 1774–1840",
+"date": "1823–24",
+"medium": "Oil on canvas",
+"museum": "Hamburger Kunsthalle, Hamburg",
+"cats": [
+"romanticism"
+],
+"fact": "Look closely at the right: the stern of a crushed ship is disappearing under the slabs of ice. The painting never sold in Friedrich’s lifetime.",
+"alias": [
+"sea of ice",
+"the wreck of hope",
+"das eismeer",
+"the polar sea",
+"arctic shipwreck"
+],
+"img": "17ef"
+},
+{
+"title": "Rain, Steam and Speed – The Great Western Railway",
+"artist": "J. M. W. Turner",
+"life": "British, 1775–1851",
+"date": "1844",
+"medium": "Oil on canvas",
+"museum": "National Gallery, London",
+"cats": [
+"romanticism"
+],
+"fact": "A train races across a bridge over the Thames. Look carefully and you’ll find a hare running ahead of it on the tracks.",
+"alias": [
+"rain steam and speed",
+"the great western railway",
+"rain, steam and speed"
+],
+"img": "01ad"
+},
+{
+"title": "Snow Storm: Hannibal and his Army Crossing the Alps",
+"artist": "J. M. W. Turner",
+"life": "British, 1775–1851",
+"date": "1812",
+"medium": "Oil on canvas",
+"museum": "Tate Britain, London",
+"cats": [
+"romanticism"
+],
+"fact": "Turner based the storm on one he watched over the Yorkshire hills. Hannibal himself is almost lost, a tiny figure on an elephant in the distance.",
+"alias": [
+"hannibal crossing the alps",
+"snow storm hannibal",
+"hannibal and his army crossing the alps",
+"snowstorm hannibal"
+],
+"img": "fb53"
+},
+{
+"title": "Keelmen Heaving in Coals by Moonlight",
+"artist": "J. M. W. Turner",
+"life": "British, 1775–1851",
+"date": "1835",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"romanticism"
+],
+"fact": "Keelmen were boatmen who loaded coal onto ships on the River Tyne. Turner sets this industrial scene under a glowing moon.",
+"alias": [
+"keelmen heaving in coals",
+"keelmen",
+"keelmen by moonlight"
+],
+"img": "d855"
+},
+{
+"title": "Salisbury Cathedral from the Bishop’s Grounds",
+"artist": "John Constable",
+"life": "British, 1776–1837",
+"date": "c. 1825",
+"medium": "Oil on canvas",
+"museum": "The Metropolitan Museum of Art, New York",
+"cats": [
+"romanticism"
+],
+"fact": "The bishop who commissioned the first version disliked its dark clouds, so Constable later painted one with a brighter sky.",
+"alias": [
+"salisbury cathedral",
+"salisbury cathedral from the bishop's grounds",
+"salisbury cathedral from the bishops garden"
+],
+"img": "9f8a"
+},
+{
+"title": "Wivenhoe Park, Essex",
+"artist": "John Constable",
+"life": "British, 1776–1837",
+"date": "1816",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"romanticism"
+],
+"fact": "Commissioned by the estate’s owner. To fit in more of the view, Constable added extra strips of canvas to the sides.",
+"alias": [
+"wivenhoe park",
+"wivenhoe park essex"
+],
+"img": "d9f9"
+},
+{
+"title": "Women of Algiers in Their Apartment",
+"artist": "Eugène Delacroix",
+"life": "French, 1798–1863",
+"date": "1834",
+"medium": "Oil on canvas",
+"museum": "Musée du Louvre, Paris",
+"cats": [
+"romanticism"
+],
+"fact": "Inspired by Delacroix’s 1832 trip to North Africa. More than a century later, Picasso painted 15 variations on it.",
+"alias": [
+"women of algiers",
+"the women of algiers",
+"femmes d'alger",
+"women of algiers in their apartment"
+],
+"img": "f5dd"
+},
+{
+"title": "The Barque of Dante",
+"artist": "Eugène Delacroix",
+"life": "French, 1798–1863",
+"date": "1822",
+"medium": "Oil on canvas",
+"museum": "Musée du Louvre, Paris",
+"cats": [
+"romanticism"
+],
+"fact": "Delacroix’s first painting at the Salon, made at age 24. Dante and the poet Virgil cross a river in Hell as the damned cling to their boat.",
+"alias": [
+"barque of dante",
+"dante and virgil in hell",
+"the barque of dante",
+"dante's barque"
+],
+"img": "1600"
+},
+{
+"title": "The Charging Chasseur",
+"artist": "Théodore Géricault",
+"life": "French, 1791–1824",
+"date": "1812",
+"medium": "Oil on canvas",
+"museum": "Musée du Louvre, Paris",
+"cats": [
+"romanticism"
+],
+"fact": "Géricault was 21 when this won a gold medal at the Salon. He loved horses, and died after a riding accident at 32.",
+"alias": [
+"charging chasseur",
+"the charging chasseur",
+"officer of the chasseurs commanding a charge",
+"chasseur"
+],
+"img": "01e6"
+},
+{
+"title": "The Nightmare",
+"artist": "Henry Fuseli",
+"life": "Swiss-British, 1741–1825",
+"date": "1781",
+"medium": "Oil on canvas",
+"museum": "Detroit Institute of Arts",
+"cats": [
+"romanticism"
+],
+"fact": "A sensation at the Royal Academy in 1782: a demon squats on a sleeping woman while a ghostly horse peers through the curtains.",
+"alias": [
+"nightmare",
+"the nightmare"
+],
+"img": "0e29"
+},
+{
+"title": "Newton",
+"artist": "William Blake",
+"life": "British, 1757–1827",
+"date": "1795–c. 1805",
+"medium": "Color print, ink and watercolor",
+"museum": "Tate Britain, London",
+"cats": [
+"romanticism"
+],
+"fact": "Blake meant it as a criticism: Newton stares at his diagram, blind to the colorful world around him. A giant bronze based on it stands outside the British Library.",
+"alias": [
+"isaac newton",
+"blake's newton"
+],
+"img": "2ce2"
+},
+{
+"title": "The Great Day of His Wrath",
+"artist": "John Martin",
+"life": "British, 1789–1854",
+"date": "1851–53",
+"medium": "Oil on canvas",
+"museum": "Tate Britain, London",
+"cats": [
+"romanticism"
+],
+"fact": "One of three huge paintings of the Last Judgement that toured Britain and America after Martin’s death, drawing crowds wherever they went.",
+"alias": [
+"great day of his wrath",
+"the great day of his wrath",
+"day of wrath"
+],
+"img": "d64c"
+},
+{
+"title": "The Ninth Wave",
+"artist": "Ivan Aivazovsky",
+"life": "Armenian-Russian, 1817–1900",
+"date": "1850",
+"medium": "Oil on canvas",
+"museum": "State Russian Museum, St. Petersburg",
+"cats": [
+"romanticism"
+],
+"fact": "Sailors believed the ninth wave in a series was the biggest. Aivazovsky painted thousands of seascapes, many from memory.",
+"alias": [
+"ninth wave",
+"the ninth wave"
+],
+"img": "eab9"
+},
+{
+"title": "The Kiss (Hayez)",
+"artist": "Francesco Hayez",
+"life": "Italian, 1791–1882",
+"date": "1859",
+"medium": "Oil on canvas",
+"museum": "Pinacoteca di Brera, Milan",
+"cats": [
+"romanticism"
+],
+"fact": "Painted the year Italy and France joined forces against Austria. Italians read it as a patriotic picture of hope for a united Italy.",
+"alias": [
+"il bacio",
+"hayez kiss",
+"the kiss hayez"
+],
+"img": "ca77"
+},
+{
+"title": "Napoleon Crossing the Alps",
+"artist": "Jacques-Louis David",
+"life": "French, 1748–1825",
+"date": "1801–05",
+"medium": "Oil on canvas",
+"museum": "Five versions, including the Château de Malmaison",
+"cats": [
+"romanticism"
+],
+"fact": "In reality Napoleon crossed the Alps on a mule in fair weather. He asked David to paint him “calm on a fiery horse.” David made five versions.",
+"alias": [
+"napoleon crossing the alps",
+"bonaparte crossing the alps",
+"napoleon crossing the great st bernard pass",
+"napoleon"
+],
+"img": "36c2"
+},
+{
+"title": "Heart of the Andes",
+"artist": "Frederic Edwin Church",
+"life": "American, 1826–1900",
+"date": "1859",
+"medium": "Oil on canvas",
+"museum": "The Metropolitan Museum of Art, New York",
+"cats": [
+"romanticism"
+],
+"fact": "First shown alone in a darkened New York room, lit by gas lamps. Thousands paid a quarter to see it, some using opera glasses to study the details.",
+"alias": [
+"heart of the andes",
+"the heart of the andes"
+],
+"img": "cac4"
+},
+{
+"title": "Among the Sierra Nevada, California",
+"artist": "Albert Bierstadt",
+"life": "American, born Germany, 1830–1902",
+"date": "1868",
+"medium": "Oil on canvas",
+"museum": "Smithsonian American Art Museum, Washington",
+"cats": [
+"romanticism"
+],
+"fact": "Painted in Rome from sketches, it combines real places into an idealized American wilderness.",
+"alias": [
+"among the sierra nevada",
+"sierra nevada",
+"among the sierra nevada california"
+],
+"img": "d51a"
+},
+{
+"title": "The Voyage of Life: Youth",
+"artist": "Thomas Cole",
+"life": "American, born England, 1801–1848",
+"date": "1842",
+"medium": "Oil on canvas",
+"museum": "National Gallery of Art, Washington",
+"cats": [
+"romanticism"
+],
+"fact": "One of four paintings following a life from childhood to old age. Here the youth steers eagerly toward a castle in the sky.",
+"alias": [
+"voyage of life youth",
+"the voyage of life",
+"voyage of life"
+],
+"img": "5539"
 }
 ];
 
