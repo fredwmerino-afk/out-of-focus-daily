@@ -193,7 +193,9 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
 .footlinks{margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .footlinks a{color:#a9b9b0}
 .installbtn{font:inherit;font-size:12.5px;font-weight:600;color:var(--wall);background:var(--gilt);border:0;border-radius:999px;padding:4px 12px;cursor:pointer}
-.installtip{margin-top:8px;color:var(--paper);font-size:13.5px;background:rgba(0,0,0,.25);border-radius:6px;padding:8px 12px}
+.installtip{margin-top:10px;color:var(--paper);font-size:14.5px;line-height:1.5;background:rgba(0,0,0,.3);border:1px solid rgba(201,164,92,.4);border-radius:8px;padding:10px 14px}
+.installtip ol{margin:6px 0 0;padding-left:20px}
+.installtip li{margin:4px 0}
 
 @media (prefers-reduced-motion: reduce){.label{animation:none}}
 [hidden]{display:none!important}
@@ -4020,9 +4022,18 @@ if ("serviceWorker" in navigator && /(^|\.)out-of-focus-games\.com$|netlify\.app
   btn.addEventListener("click",async()=>{
     if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;btn.hidden=true;return;}
     let tip=document.getElementById("installTip");
-    if(!tip){tip=document.createElement("div");tip.id="installTip";tip.className="installtip";
-      tip.innerHTML="To install: tap the <strong>Share</strong> button <span aria-hidden=\"true\">(the square with an arrow)</span> in Safari, then choose <strong>Add to Home Screen</strong>.";
-      btn.closest("footer").appendChild(tip);}
+    if(!tip){
+      const ua=navigator.userAgent;
+      const chrome=/CriOS/.test(ua), firefox=/FxiOS/.test(ua), edge=/EdgiOS/.test(ua);
+      let steps;
+      if(chrome||edge) steps="<li>Tap the <strong>Share</strong> icon <span aria-hidden=\"true\">(a square with an arrow pointing up)</span> at the right end of the address bar. If you don’t see it, tap <strong>•••</strong> first.</li><li>Choose <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li>";
+      else if(firefox) steps="<li>Tap the menu <strong>☰</strong> at the bottom right, then <strong>Share</strong>.</li><li>Choose <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong>.</li>";
+      else steps="<li>Tap the <strong>Share</strong> button <span aria-hidden=\"true\">(a square with an arrow pointing up)</span> at the bottom of the screen. On newer iPhones, tap <strong>•••</strong> at the bottom right first, then <strong>Share</strong>.</li><li>Scroll down and choose <strong>Add to Home Screen</strong>. If it isn’t listed, tap <strong>View More</strong>.</li><li>Tap <strong>Add</strong>. The game’s icon appears on your home screen.</li>";
+      tip=document.createElement("div");tip.id="installTip";tip.className="installtip";
+      tip.innerHTML="<strong>Add Out of Focus to your home screen</strong><ol>"+steps+"</ol>";
+      btn.closest("footer").appendChild(tip);
+      tip.scrollIntoView({behavior:"smooth",block:"nearest"});
+    }
     else tip.remove();
   });
 })();
