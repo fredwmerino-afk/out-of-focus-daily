@@ -2959,7 +2959,10 @@ function isMatch(guess,p){
 function seeded(seed){let s=seed>>>0;return()=>{s=(s+0x6D2B79F5)>>>0;let t=s;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
 function shuffle(arr,rand=Math.random){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rand()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function todayKey(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
-const SITE_URL="https://out-of-focus-daily.netlify.app/";
+// Share link: use the address the game is being played on when it is one of ours,
+// so it switches to out-of-focus-games.com by itself once that domain is connected.
+const SITE_URL=/(^|\.)out-of-focus-games\.com$|^out-of-focus-daily\.netlify\.app$/.test(location.hostname)
+  ? location.origin+"/" : "https://out-of-focus-daily.netlify.app/";
 const LAUNCH_DAY=Date.UTC(2026,10,20)/86400000;
 function dayNum(d=new Date()){return Math.round(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);}
 function puzzleNo(){return dayNum()-LAUNCH_DAY+1;}
