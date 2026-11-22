@@ -6,16 +6,16 @@
 <title>Out of Focus Daily</title>
 <meta name="description" content="A daily art puzzle: name the masterpiece before it comes into focus. Five famous paintings a day.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://out-of-focus-daily.netlify.app/">
+<meta property="og:url" content="https://out-of-focus-games.com/">
 <meta property="og:title" content="Out of Focus Daily">
 <meta property="og:description" content="Name the masterpiece before it comes into focus. A new puzzle every day.">
-<meta property="og:image" content="https://out-of-focus-daily.netlify.app/og.png">
+<meta property="og:image" content="https://out-of-focus-games.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Out of Focus Daily">
 <meta name="twitter:description" content="Name the masterpiece before it comes into focus. A new puzzle every day.">
-<meta name="twitter:image" content="https://out-of-focus-daily.netlify.app/og.png">
+<meta name="twitter:image" content="https://out-of-focus-games.com/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -2967,7 +2967,7 @@ function todayKey(){const d=new Date();return d.getFullYear()*10000+(d.getMonth(
 // Share link: use the address the game is being played on when it is one of ours,
 // so it switches to out-of-focus-games.com by itself once that domain is connected.
 const SITE_URL=/(^|\.)out-of-focus-games\.com$|^out-of-focus-daily\.netlify\.app$/.test(location.hostname)
-  ? location.origin+"/" : "https://out-of-focus-daily.netlify.app/";
+  ? location.origin+"/" : "https://out-of-focus-games.com/";
 const LAUNCH_DAY=Date.UTC(2026,10,20)/86400000;
 function dayNum(d=new Date()){return Math.round(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);}
 function puzzleNo(){return dayNum()-LAUNCH_DAY+1;}
