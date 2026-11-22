@@ -2,7 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#18241f">
+<link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Out of Focus">
 <title>Out of Focus Daily</title>
 <meta name="description" content="A daily art puzzle: name the masterpiece before it comes into focus. Five famous paintings a day.">
 <meta property="og:type" content="website">
@@ -181,8 +190,10 @@ canvas#art{display:block;max-width:100%;height:auto;image-rendering:pixelated}
 .nextpuzzle{font-size:14px;color:var(--muted)}
 .nextpuzzle strong{color:var(--paper);font-variant-numeric:tabular-nums}
 footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08);padding-top:12px}
-.footlinks{margin-top:8px;display:flex;gap:16px;flex-wrap:wrap}
+.footlinks{margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .footlinks a{color:#a9b9b0}
+.installbtn{font:inherit;font-size:12.5px;font-weight:600;color:var(--wall);background:var(--gilt);border:0;border-radius:999px;padding:4px 12px;cursor:pointer}
+.installtip{margin-top:8px;color:var(--paper);font-size:13.5px;background:rgba(0,0,0,.25);border-radius:6px;padding:8px 12px}
 
 @media (prefers-reduced-motion: reduce){.label{animation:none}}
 [hidden]{display:none!important}
@@ -254,7 +265,7 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
   </main>
 
   <footer><span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the Metropolitan Museum of Art, the National Gallery of Art in Washington, the Smithsonian American Art Museum and the Mauritshuis, and from Wikimedia Commons, which hosts photographs of public-domain works from museums including the Louvre, the Prado, the Uffizi, the National Gallery in London and the Rijksmuseum.
-    <nav class="footlinks"><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
+    <nav class="footlinks"><button type="button" id="installBtn" class="installbtn" hidden>📲 Install the app</button><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
 </div>
 
 <script>
@@ -3987,6 +3998,34 @@ function start(data){
 }
 window.claude?.hot?.snapshot?.(()=>({state}));
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+<script>
+// Offline support and installing: only on the game's own site.
+if ("serviceWorker" in navigator && /(^|\.)out-of-focus-games\.com$|netlify\.app$/.test(location.hostname)) {
+  addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+}
+</script>
+<script>
+// "Install the app" button: Android and desktop Chrome/Edge offer a real install prompt;
+// iPhone and iPad Safari need the Share menu, so we show a short tip instead.
+(function(){
+  const btn=document.getElementById("installBtn"); if(!btn) return;
+  const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+  if(standalone) return;
+  let deferred=null;
+  addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;btn.hidden=false;});
+  addEventListener("appinstalled",()=>{btn.hidden=true;deferred=null;});
+  const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  if(ios) btn.hidden=false;
+  btn.addEventListener("click",async()=>{
+    if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;btn.hidden=true;return;}
+    let tip=document.getElementById("installTip");
+    if(!tip){tip=document.createElement("div");tip.id="installTip";tip.className="installtip";
+      tip.innerHTML="To install: tap the <strong>Share</strong> button <span aria-hidden=\"true\">(the square with an arrow)</span> in Safari, then choose <strong>Add to Home Screen</strong>.";
+      btn.closest("footer").appendChild(tip);}
+    else tip.remove();
+  });
+})();
 </script>
 </body>
 </html>

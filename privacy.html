@@ -2,7 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#18241f">
+<link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Out of Focus">
 <title>Privacy Policy · Out of Focus Daily</title>
 <meta name="description" content="Privacy policy for Out of Focus Daily (out-of-focus-games.com).">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..800;1,6..96,400..700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,6 +30,7 @@
 
   <h2>Information stored on your device</h2>
   <p>The game saves your progress on today’s puzzle and your stats (games played, current streak and best streak) in your browser’s local storage. This information stays on your device and is not sent to us. You can delete it at any time by clearing your browser’s site data.</p>
+  <p>So the game opens quickly and works offline, your browser also keeps copies of the game’s pages and painting images. These are the same files anyone can download from the site, and they contain no personal information.</p>
 
   <h2>Information collected automatically</h2>
   <p>Like most websites, our hosting provider, Netlify, receives standard technical information when you visit, such as your IP address, browser type and the pages requested. It uses this to deliver and secure the site and may keep it in server logs. We may also use Netlify’s aggregate traffic statistics, which count visits without using cookies.</p>
@@ -56,5 +66,11 @@
 
   <footer><a href="index.html">Play</a><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></footer>
 </div>
+<script>
+// Offline support and installing: only on the game's own site.
+if ("serviceWorker" in navigator && /(^|\.)out-of-focus-games\.com$|netlify\.app$/.test(location.hostname)) {
+  addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
+}
+</script>
 </body>
 </html>

@@ -1,2 +1,12 @@
 [build]
   publish = "."
+
+# Always check for a new version of the offline helper and the app settings
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
