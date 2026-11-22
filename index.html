@@ -192,6 +192,9 @@ canvas#art{display:block;max-width:100%;height:auto;image-rendering:pixelated}
 footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08);padding-top:12px}
 .footlinks{margin-top:8px;display:flex;gap:16px;flex-wrap:wrap;align-items:center}
 .footlinks a{color:#a9b9b0}
+.intro{border-top:1px solid rgba(239,232,216,.08);padding-top:14px;color:#c9c2b2;font-size:15px;max-width:820px}
+.intro h2{font-family:var(--display);font-weight:500;font-size:24px;margin:0 0 6px;color:var(--paper)}
+.intro a{color:var(--gilt)}
 .installbtn{font:inherit;font-size:12.5px;font-weight:600;color:var(--wall);background:var(--gilt);border:0;border-radius:999px;padding:4px 12px;cursor:pointer}
 .installtip{margin-top:10px;color:var(--paper);font-size:14.5px;line-height:1.5;background:rgba(0,0,0,.3);border:1px solid rgba(201,164,92,.4);border-radius:8px;padding:10px 14px}
 .installtip ol{margin:6px 0 0;padding-left:20px}
@@ -267,8 +270,13 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
     </section>
   </main>
 
+  <section class="intro">
+    <h2>About Out of Focus</h2>
+    <p>Out of Focus Daily is a free art puzzle. Each painting starts as a coarse mosaic of colored tiles and sharpens step by step; name it as early as you can for the most points. Everyone gets the same five paintings each day, drawn from masterpieces in the world’s great museums, from Botticelli and Rembrandt to Monet and Van Gogh. Prefer to practice? Pick a style above and play as many games as you like.</p>
+    <p>Want to know more about what you just saw? Our <a href="/guides/">art guides</a> tell the story of every painting in the game, with short introductions to the <a href="/guides/renaissance.html">Renaissance</a>, <a href="/guides/baroque.html">Baroque</a>, <a href="/guides/dutch-golden-age.html">Dutch Golden Age</a>, <a href="/guides/romanticism.html">Romanticism</a>, <a href="/guides/impressionism.html">Impressionism</a> and <a href="/guides/post-impressionism.html">Post-Impressionism</a>, and to artists like <a href="/artists/johannes-vermeer.html">Vermeer</a>, <a href="/artists/claude-monet.html">Monet</a> and <a href="/artists/vincent-van-gogh.html">Van Gogh</a>.</p>
+  </section>
   <footer><span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the Metropolitan Museum of Art, the National Gallery of Art in Washington, the Smithsonian American Art Museum and the Mauritshuis, and from Wikimedia Commons, which hosts photographs of public-domain works from museums including the Louvre, the Prado, the Uffizi, the National Gallery in London and the Rijksmuseum.
-    <nav class="footlinks"><button type="button" id="installBtn" class="installbtn" hidden>📲 Install the app</button><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
+    <nav class="footlinks"><button type="button" id="installBtn" class="installbtn" hidden>📲 Install the app</button><a href="/guides/">Art guides</a><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
 </div>
 
 <script>
@@ -4709,7 +4717,13 @@ function start(data){
     state=data.state; $("hard").checked=!!state.hard;
     document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.cat===state.cat));
     render();
-  } else newGame("daily");
+  } else {
+    // a link like /?cat=impressionism (from the art guides) opens that category
+    const want=new URLSearchParams(location.search).get("cat");
+    const chip=want && document.querySelector(`.chip[data-cat="${CSS.escape(want)}"]`);
+    if(chip && want!=="daily"){ document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===chip)); newGame(want); }
+    else newGame("daily");
+  }
 }
 window.claude?.hot?.snapshot?.(()=>({state}));
 window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
