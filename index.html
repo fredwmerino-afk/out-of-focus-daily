@@ -4709,7 +4709,7 @@ function renderSummary(){
   clearInterval(cdTimer); if(daily){ countdown(); cdTimer=setInterval(countdown,1000); }
 }
 
-$("count").textContent=PAINTINGS.length;
+$("count").textContent=(Math.floor(PAINTINGS.length/50)*50)+"+";   // e.g. "200+": a round number that stays true as paintings are added
 showStreak();
 /* ---------- boot (keeps a game in progress across republish) ---------- */
 function start(data){

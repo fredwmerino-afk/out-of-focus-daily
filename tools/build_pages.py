@@ -17,6 +17,7 @@ SITE = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/out-of-focus-daily"
 BASE = "https://out-of-focus-games.com"
 sys.path.insert(0, os.path.dirname(__file__))
 from guide_text import CATEGORIES, ARTISTS
+def roundcount(n): return f"{n // 50 * 50}+"   # "200+": stays true as paintings are added
 
 CAT_ORDER = ["famous", "renaissance", "baroque", "dutch", "romanticism", "impressionism", "postimpressionism"]
 E = lambda s: html.escape(str(s), quote=True)
@@ -248,14 +249,14 @@ az = "".join(f'<h3 id="l-{k}">{k}</h3><ul class="az">' + "".join(
 artist_list = "".join(f'<li><a href="/artists/{artist_slug[a]}.html">{E(a)}</a></li>' for a in sorted(ARTISTS, key=lambda x: x.split()[-1]) if by_artist.get(a))
 body = f'''  <h1>Art guides</h1>
   <p class="lede">Every painting in Out of Focus, with the story behind it, and short guides to the great periods of Western art.</p>
-  <p>Out of Focus is a daily art puzzle: each painting starts as a blurry mosaic and sharpens step by step until you can name it. These pages tell you about the {len(P)} paintings in the game: who painted them, when, where you can see them today and why they matter. Read up before you play, or come back after a round to learn about the painting that stumped you.</p>
+  <p>Out of Focus is a daily art puzzle: each painting starts as a blurry mosaic and sharpens step by step until you can name it. These pages tell you about the {roundcount(len(P))} paintings in the game: who painted them, when, where you can see them today and why they matter. Read up before you play, or come back after a round to learn about the painting that stumped you.</p>
   <h2>Styles and periods</h2>
   <div class="guides">{cat_cards}</div>
   <h2>Artists</h2>
   <ul class="artists">{artist_list}</ul>
-  <h2>All {len(P)} paintings, A to Z</h2>
+  <h2>Every painting, A to Z</h2>
   {az}'''
-urls.insert(0, page("guides/index.html", "Art guides: every painting in Out of Focus", f"Guides to {len(P)} famous paintings and the periods of Western art, from the Renaissance to Post-Impressionism.", body, None, None))
+urls.insert(0, page("guides/index.html", "Art guides: every painting in Out of Focus", f"Guides to {roundcount(len(P))} famous paintings and the periods of Western art, from the Renaissance to Post-Impressionism.", body, None, None))
 
 # ---------- sitemap + robots ----------
 root = [f"{BASE}/", f"{BASE}/how-to-play.html", f"{BASE}/about.html", f"{BASE}/privacy.html", f"{BASE}/contact.html"]
