@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.outoffocusgames.daily",
+    "sha256_cert_fingerprints": [
+      "09:55:E4:FC:3E:96:0E:76:1C:6D:3A:59:61:F7:25:E7:59:1A:AC:98:94:2F:66:63:F8:A6:68:69:76:F4:69:B7"
+    ]
+  }
+}]
