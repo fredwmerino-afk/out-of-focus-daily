@@ -71,7 +71,7 @@ HEAD_EXTRA = '''<link rel="manifest" href="/manifest.webmanifest">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3316593120945895"
      crossorigin="anonymous"></script>
 '''
-FOOT = '''<footer><a href="/">Play</a><a href="/guides/">Art guides</a><a href="/how-to-play.html">How to play</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/contact.html">Contact</a></footer>'''
+FOOT = '''<footer><a href="/">Play</a><a href="/guides/">Art guides</a><a href="/how-to-play.html">How to play</a><a href="/about.html">About</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact</a></footer>'''
 REG = '''<script>
 if ("serviceWorker" in navigator && /(^|\\.)out-of-focus-games\\.com$|netlify\\.app$/.test(location.hostname)) {
   addEventListener("load", () => navigator.serviceWorker.register("/sw.js").catch(() => {}));
@@ -259,7 +259,7 @@ body = f'''  <h1>Art guides</h1>
 urls.insert(0, page("guides/index.html", "Art guides: every painting in Out of Focus", f"Guides to {roundcount(len(P))} famous paintings and the periods of Western art, from the Renaissance to Post-Impressionism.", body, None, None))
 
 # ---------- sitemap + robots ----------
-root = [f"{BASE}/", f"{BASE}/how-to-play.html", f"{BASE}/about.html", f"{BASE}/privacy.html", f"{BASE}/contact.html"]
+root = [f"{BASE}/", f"{BASE}/how-to-play.html", f"{BASE}/about.html", f"{BASE}/privacy.html", f"{BASE}/terms.html", f"{BASE}/contact.html"]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{u}</loc></url>\n" for u in root + urls) + "</urlset>\n"
 open(os.path.join(SITE, "sitemap.xml"), "w").write(sm)
