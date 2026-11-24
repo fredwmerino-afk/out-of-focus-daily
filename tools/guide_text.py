@@ -62,6 +62,18 @@ CATEGORIES = {
   ],
   "look": ["Dramatic skies, storms, seas and mountains", "Small human figures facing vast landscapes", "Energetic brushwork and intense, glowing color"],
  },
+ "japanese": {
+  "name": "Japanese Prints",
+  "path": "japanese-prints",
+  "dates": "c. 1760–1860",
+  "lede": "Hokusai’s Mount Fuji, Hiroshige’s rain and snow, and the woodblock prints that changed Western art.",
+  "body": [
+   "In the bustling city of Edo, now Tokyo, publishers sold colorful woodblock prints as cheaply as a bowl of noodles. These pictures of the “floating world,” called ukiyo-e, showed famous beauties, kabuki actors and, later, landscapes and travel scenes. Each print was a team effort: an artist made the design, a carver cut it into cherry-wood blocks, one for each color, and a printer pressed the paper onto the inked blocks by hand.",
+   "In the 1760s Suzuki Harunobu helped introduce full-color printing. Kitagawa Utamaro became famous for elegant close-up portraits of women, and the mysterious Tōshūsai Sharaku for his bold caricatures of actors. In the 1830s Katsushika Hokusai’s Thirty-Six Views of Mount Fuji and Utagawa Hiroshige’s Fifty-three Stations of the Tōkaidō made landscape the most popular subject of all.",
+   "After Japan opened to trade in the 1850s, prints poured into Europe. Monet, Degas, Van Gogh and Whistler collected them and learned from their flat areas of color, bold outlines, unusual viewpoints and figures cut off by the edge of the picture."
+  ],
+  "look": ["Flat areas of bright color and strong outlines", "Mount Fuji, travelers, rain, snow and famous views", "Unusual viewpoints and objects cropped by the edge of the picture"],
+ },
  "impressionism": {
   "name": "Impressionism",
   "path": "impressionism",
@@ -118,6 +130,10 @@ ARTISTS = {
  "Michelangelo Buonarroti": "Michelangelo was a sculptor first, carving the David before he was thirty, but he also painted the Sistine Chapel ceiling and the Last Judgment, and designed the dome of St. Peter’s in Rome.",
  "Jan van Eyck": "Van Eyck worked in Bruges and perfected the technique of oil painting, achieving detail and luminous color that astonished his contemporaries.",
  "Mary Cassatt": "Cassatt was an American who settled in Paris and became the only American to exhibit with the Impressionists. She is best known for tender scenes of mothers and children.",
+ "Utagawa Hiroshige": "Hiroshige was the great rival of Hokusai and the master of the travel print. His series Fifty-three Stations of the Tōkaidō and One Hundred Famous Views of Edo capture rain, snow, mist and moonlight, and Van Gogh copied two of his prints in oil.",
+ "Kitagawa Utamaro": "Utamaro was the leading designer of prints of beautiful women in the 1790s, famous for his close-up “large head” portraits set against shimmering mica backgrounds.",
+ "Tōshūsai Sharaku": "Sharaku is one of the great mysteries of Japanese art. He produced about 140 striking prints of kabuki actors in about ten months in 1794–95, then vanished, and no one knows for sure who he was.",
+ "Suzuki Harunobu": "Harunobu helped pioneer full-color woodblock printing in the 1760s. His delicate, doll-like figures of young women and lovers made him the most popular print designer of his day.",
  "Katsushika Hokusai": "Hokusai made thousands of prints, paintings and drawings over a long career, using dozens of names. His series Thirty-Six Views of Mount Fuji, which includes The Great Wave, influenced Monet, Van Gogh and many other Western artists.",
  "Francisco Goya": "Goya was court painter to the Spanish kings, but he is also remembered for his searing images of war and his dark, private late works.",
  "Gustav Klimt": "Klimt was a founder of the Vienna Secession, an artists’ group that broke with the academic establishment. His “golden period” paintings use real gold leaf and rich patterns.",

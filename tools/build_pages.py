@@ -19,7 +19,11 @@ sys.path.insert(0, os.path.dirname(__file__))
 from guide_text import CATEGORIES, ARTISTS
 def roundcount(n): return f"{n // 50 * 50}+"   # "200+": stays true as paintings are added
 
-CAT_ORDER = ["famous", "renaissance", "baroque", "dutch", "romanticism", "impressionism", "postimpressionism"]
+CAT_ORDER = ["famous", "renaissance", "baroque", "dutch", "romanticism", "japanese", "impressionism", "postimpressionism"]
+def is_print(p): return "woodblock" in p["medium"].lower()
+def noun(ws, plural=True):
+    k = "print" if ws and all(is_print(q) for q in ws) else "painting"
+    return k + ("s" if plural else "")
 E = lambda s: html.escape(str(s), quote=True)
 
 src = open(os.path.join(SITE, "index.html"), encoding="utf-8").read()
@@ -122,7 +126,7 @@ def card(p):
 
 def grid(items): return '<div class="grid">' + "".join(card(p) for p in items) + '</div>'
 
-MAIN_PRIORITY = ["dutch", "romanticism", "postimpressionism", "impressionism", "renaissance", "baroque", "famous"]
+MAIN_PRIORITY = ["japanese", "dutch", "romanticism", "postimpressionism", "impressionism", "renaissance", "baroque", "famous"]
 def mainstyle(cats):
     return next(c for c in MAIN_PRIORITY if c in cats)
 
@@ -151,7 +155,7 @@ for p in P:
     elif "century" in when: when = "the " + when
     who = p["artist"] if not p["artist"].lower().startswith(("workshop", "after", "attributed", "unknown", "florentine", "spanish painter")) else "The artist"
     intro = f'{who} made <em>{E(t)}</em> {"" if when.startswith("around") else "in "}{E(when)}.{E(where)}'
-    sections.append(f'<h2>About this painting</h2>\n  <p>{intro}</p>\n  <p>{E(p["fact"])}</p>')
+    sections.append(f'<h2>About this {noun([p], False)}</h2>\n  <p>{intro}</p>\n  <p>{E(p["fact"])}</p>')
     if p["artist"] in ARTISTS:
         sections.append(f'<h2>About the artist</h2>\n  <p>{E(ARTISTS[p["artist"]])} <a href="/artists/{artist_slug[p["artist"]]}.html">More about {E(p["artist"])}</a></p>')
     if cats:
@@ -169,7 +173,7 @@ for p in P:
             pick = [pool[(k + i * 7) % len(pool)] for i in range(min(6, len(pool)))]
             pick = list(dict.fromkeys(id(x) for x in pick))
             pick = [next(q for q in pool if id(q) == i) for i in pick]
-            sections.append(f'<h2>More {E(CATEGORIES[main]["name"])} paintings</h2>\n  {grid(pick)}')
+            sections.append(f'<h2>More {E(CATEGORIES[main]["name"])}{"" if main == "japanese" else " paintings"}</h2>\n  {grid(pick)}')
     body = f'''  <article class="painting">
   <h1>{E(t)}</h1>
   <p class="byline">{artist_html} <span>({E(p["life"])})</span></p>
@@ -200,10 +204,10 @@ for a, note in ARTISTS.items():
     body = f'''  <h1>{E(a)}</h1>
   <p class="lede">{E(life)}</p>
   <p>{E(note)}</p>
-  <h2>{len(works)} painting{"s" if len(works) != 1 else ""} by {E(a)} in Out of Focus</h2>
+  <h2>{len(works)} {noun(works, len(works) != 1)} by {E(a)} in Out of Focus</h2>
   {grid(works)}
   <div class="cta">Think you’d know a {E(a.split()[-1])} anywhere? <a href="/">Play today’s puzzle</a></div>'''
-    urls.append(page(f'artists/{artist_slug[a]}.html', f'{a}: paintings and biography | Out of Focus', note[:290], body, works[0]["img"],
+    urls.append(page(f'artists/{artist_slug[a]}.html', f'{a}: {noun(works)} and biography | Out of Focus', note[:290], body, works[0]["img"],
                      [("Art guides", "/guides/"), (a, None)]))
 
 # ---------- category guides ----------
@@ -224,10 +228,10 @@ for c in CAT_ORDER:
   <ul>{"".join(f"<li>{E(x)}</li>" for x in cd["look"])}</ul>
   {key_artists}
   <div class="cta">Test yourself: <a href="/?cat={c}">play a game of {E(cd["name"])}</a></div>
-  <h2>All {len(works)} {E(cd["name"])} paintings in the game</h2>
+  <h2>All {len(works)} {E(cd["name"]) if c == "japanese" else E(cd["name"]) + " paintings"} in the game</h2>
   {grid(works)}'''
-    urls.append(page(f'guides/{cd["path"]}.html', f'{cd["name"]}: a guide with {len(works)} paintings | Out of Focus',
-                     f'{cd["lede"]} A short guide to {cd["name"]}, its key artists and {len(works)} paintings.', body, works[0]["img"],
+    urls.append(page(f'guides/{cd["path"]}.html', f'{cd["name"]}: a guide with {len(works)} {noun(works)} | Out of Focus',
+                     f'{cd["lede"]} A short guide to {cd["name"]}, its key artists and {len(works)} {noun(works)}.', body, works[0]["img"],
                      [("Art guides", "/guides/"), (cd["name"], None)]))
 
 # ---------- guides hub ----------
@@ -236,12 +240,12 @@ for p in sorted(P, key=lambda q: re.sub(r"^(the|a|an)\s+", "", clean_title(q).lo
     k = re.sub(r"^(the|a|an)\s+", "", clean_title(p), flags=re.I)[:1].upper()
     letters[k if k.isalpha() else "#"].append(p)
 COVERS = {"famous": "The Starry Night", "renaissance": "The Birth of Venus", "baroque": "Las Meninas", "dutch": "Girl with a Pearl Earring",
-          "romanticism": "Wanderer above the Sea of Fog", "impressionism": "Impression, Sunrise", "postimpressionism": "A Sunday on La Grande Jatte — 1884"}
+          "romanticism": "Wanderer above the Sea of Fog", "japanese": "The Great Wave off Kanagawa", "impressionism": "Impression, Sunrise", "postimpressionism": "A Sunday on La Grande Jatte — 1884"}
 def cover(c):
     return next((q for q in by_cat[c] if q["title"] == COVERS.get(c)), by_cat[c][0])
 cat_cards = "".join(
     f'<a class="guidecard" href="/guides/{CATEGORIES[c]["path"]}.html"><img src="/thumbs/{cover(c)["img"]}.jpg" alt="" loading="lazy">'
-    f'<span class="gt">{E(CATEGORIES[c]["name"])}</span><span class="gd">{E(CATEGORIES[c]["dates"])} · {len(by_cat[c])} paintings</span></a>'
+    f'<span class="gt">{E(CATEGORIES[c]["name"])}</span><span class="gd">{E(CATEGORIES[c]["dates"])} · {len(by_cat[c])} {noun(by_cat[c])}</span></a>'
     for c in CAT_ORDER if by_cat[c])
 az = "".join(f'<h3 id="l-{k}">{k}</h3><ul class="az">' + "".join(
     f'<li><a href="/paintings/{p["_slug"]}.html">{E(clean_title(p))}</a> <span>{E(p["artist"])}, {E(p["date"])}</span></li>' for p in ps) + '</ul>'

@@ -227,6 +227,7 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
     <button class="chip" data-cat="baroque" aria-pressed="false">Baroque</button>
     <button class="chip" data-cat="dutch" aria-pressed="false">Dutch Golden Age</button>
     <button class="chip" data-cat="romanticism" aria-pressed="false">Romanticism</button>
+    <button class="chip" data-cat="japanese" aria-pressed="false">Japanese Prints</button>
     <button class="chip" data-cat="impressionism" aria-pressed="false">Impressionism</button>
     <button class="chip" data-cat="postimpressionism" aria-pressed="false">Post-Impressionism</button>
     <button class="chip" data-cat="all" aria-pressed="false">Everything</button>
@@ -272,10 +273,10 @@ footer{color:#7d8f86;font-size:12.5px;border-top:1px solid rgba(239,232,216,.08)
 
   <section class="intro">
     <h2>About Out of Focus</h2>
-    <p>Out of Focus Daily is a free art puzzle. Each painting starts as a coarse mosaic of colored tiles and sharpens step by step; name it as early as you can for the most points. Everyone gets the same five paintings each day, drawn from masterpieces in the world’s great museums, from Botticelli and Rembrandt to Monet and Van Gogh. Prefer to practice? Pick a style above and play as many games as you like.</p>
-    <p>Want to know more about what you just saw? Our <a href="/guides/">art guides</a> tell the story of every painting in the game, with short introductions to the <a href="/guides/renaissance.html">Renaissance</a>, <a href="/guides/baroque.html">Baroque</a>, <a href="/guides/dutch-golden-age.html">Dutch Golden Age</a>, <a href="/guides/romanticism.html">Romanticism</a>, <a href="/guides/impressionism.html">Impressionism</a> and <a href="/guides/post-impressionism.html">Post-Impressionism</a>, and to artists like <a href="/artists/johannes-vermeer.html">Vermeer</a>, <a href="/artists/claude-monet.html">Monet</a> and <a href="/artists/vincent-van-gogh.html">Van Gogh</a>.</p>
+    <p>Out of Focus Daily is a free art puzzle. Each painting starts as a coarse mosaic of colored tiles and sharpens step by step; name it as early as you can for the most points. Everyone gets the same five paintings each day, drawn from masterpieces in the world’s great museums, from Botticelli and Rembrandt to Hokusai, Monet and Van Gogh. Prefer to practice? Pick a style above and play as many games as you like.</p>
+    <p>Want to know more about what you just saw? Our <a href="/guides/">art guides</a> tell the story of every painting in the game, with short introductions to the <a href="/guides/renaissance.html">Renaissance</a>, <a href="/guides/baroque.html">Baroque</a>, <a href="/guides/dutch-golden-age.html">Dutch Golden Age</a>, <a href="/guides/romanticism.html">Romanticism</a>, <a href="/guides/japanese-prints.html">Japanese Prints</a>, <a href="/guides/impressionism.html">Impressionism</a> and <a href="/guides/post-impressionism.html">Post-Impressionism</a>, and to artists like <a href="/artists/johannes-vermeer.html">Vermeer</a>, <a href="/artists/claude-monet.html">Monet</a> and <a href="/artists/vincent-van-gogh.html">Van Gogh</a>.</p>
   </section>
-  <footer><span id="count"></span> public-domain paintings · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the Metropolitan Museum of Art, the National Gallery of Art in Washington, the Smithsonian American Art Museum and the Mauritshuis, and from Wikimedia Commons, which hosts photographs of public-domain works from museums including the Louvre, the Prado, the Uffizi, the National Gallery in London and the Rijksmuseum.
+  <footer><span id="count"></span> public-domain artworks · Each wrong guess sharpens the image by one step. Images from the open-access collections of the Art Institute of Chicago, the Metropolitan Museum of Art, the National Gallery of Art in Washington, the Smithsonian American Art Museum and the Mauritshuis, and from Wikimedia Commons, which hosts photographs of public-domain works from museums including the Louvre, the Prado, the Uffizi, the National Gallery in London and the Rijksmuseum.
     <nav class="footlinks"><button type="button" id="installBtn" class="installbtn" hidden>📲 Install the app</button><a href="/guides/">Art guides</a><a href="how-to-play.html">How to play</a><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="contact.html">Contact</a></nav></footer>
 </div>
 
@@ -3097,7 +3098,8 @@ const PAINTINGS = [
 "medium": "Color woodblock print",
 "museum": "The Art Institute of Chicago",
 "cats": [
-"famous"
+"famous",
+"japanese"
 ],
 "fact": "From the series Thirty-Six Views of Mount Fuji. Fuji is the small snowy peak framed by the wave.",
 "alias": [
@@ -4335,6 +4337,370 @@ const PAINTINGS = [
 ],
 "img": "5340",
 "added": "2026-11-22"
+},
+{
+"title": "Fine Wind, Clear Morning (Red Fuji)",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Better known as “Red Fuji.” The mountain glows red in early-morning sun in late summer, under a sky of small, fleecy clouds. It comes from Thirty-Six Views of Mount Fuji, the same series as The Great Wave.",
+"alias": [
+"red fuji",
+"fine wind clear morning",
+"south wind clear sky",
+"gaifu kaisei",
+"aka fuji"
+],
+"img": "3e26",
+"added": "2026-11-24"
+},
+{
+"title": "Thunderstorm Beneath the Summit (Black Fuji)",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"cats": [
+"japanese"
+],
+"fact": "Lightning strikes the dark lower slopes while the peak rises into clear sky. It mirrors the composition of Red Fuji, and the two are often shown side by side.",
+"alias": [
+"black fuji",
+"thunderstorm beneath the summit",
+"rainstorm beneath the summit",
+"shower below the summit",
+"sanka hakuu",
+"storm under fuji"
+],
+"img": "443b",
+"added": "2026-11-24"
+},
+{
+"title": "Ejiri in Suruga Province",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "A sudden gust sends hats and papers flying while the travelers bend into the wind. Mount Fuji, drawn as a single simple outline, stays perfectly still.",
+"alias": [
+"ejiri",
+"ejiri in suruga province",
+"a sudden gust of wind",
+"travelers in the wind"
+],
+"img": "6c9b",
+"added": "2026-11-24"
+},
+{
+"title": "Kajikazawa in Kai Province",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "A fisherman braces on a rocky point above the churning river, his lines fanning out like the slopes of Fuji behind him. Early impressions were printed almost entirely in shades of blue.",
+"alias": [
+"kajikazawa",
+"kajikazawa in kai province",
+"fisherman on a rock"
+],
+"img": "bb56",
+"added": "2026-11-24"
+},
+{
+"title": "Hodogaya on the Tōkaidō",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Travelers on the Tōkaidō, the great highway between Edo and Kyoto, pass a row of pines. Fuji appears between the trunks like a picture in a frame.",
+"alias": [
+"hodogaya",
+"hodogaya on the tokaido",
+"fuji through the pines"
+],
+"img": "4eeb",
+"added": "2026-11-24"
+},
+{
+"title": "Mishima Pass in Kai Province",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1830–32",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Three travelers link arms to measure a giant cedar tree, while Fuji looms in the background. Hokusai loved to show ordinary people busy with their lives beneath the mountain.",
+"alias": [
+"mishima pass",
+"mishima pass in kai province",
+"travelers around a giant tree"
+],
+"img": "b958",
+"added": "2026-11-24"
+},
+{
+"title": "Kirifuri Waterfall at Kurokami Mountain",
+"artist": "Katsushika Hokusai",
+"life": "Japanese, 1760–1849",
+"date": "c. 1832",
+"medium": "Color woodblock print",
+"cats": [
+"japanese"
+],
+"fact": "From the series A Tour of Waterfalls in Various Provinces. The falls near Nikkō split into streams like the fingers of a hand, while tiny pilgrims gaze up from below.",
+"alias": [
+"kirifuri waterfall",
+"kirifuri falls",
+"kirifuri waterfall at kurokami mountain",
+"kirifuri"
+],
+"img": "4b1f",
+"added": "2026-11-24"
+},
+{
+"title": "Sudden Shower over Shin-Ōhashi Bridge and Atake",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "1857",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Hiroshige drew the rain as fine dark lines cutting across the whole picture. Van Gogh painted his own copy in 1887, adding a border of Japanese characters.",
+"alias": [
+"sudden shower over shin-ohashi bridge and atake",
+"sudden shower",
+"sudden shower over shin ohashi bridge",
+"bridge in the rain",
+"ohashi bridge"
+],
+"img": "40f7",
+"added": "2026-11-24"
+},
+{
+"title": "Plum Park in Kameido",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "1857",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "The huge plum branch in the foreground, cut off by the edge of the picture, amazed European artists. Van Gogh copied this print in oil in 1887.",
+"alias": [
+"plum park in kameido",
+"plum garden in kameido",
+"plum estate kameido",
+"flowering plum tree",
+"kameido"
+],
+"img": "04cf",
+"added": "2026-11-24"
+},
+{
+"title": "Fukagawa Susaki and Jūmantsubo",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "1857",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "We look down through the eyes of an eagle swooping over the snowy marshland at the edge of Edo Bay, with Mount Fuji on the horizon.",
+"alias": [
+"fukagawa susaki and jumantsubo",
+"fukagawa susaki",
+"jumantsubo",
+"the eagle",
+"eagle over snow"
+],
+"img": "de0f",
+"added": "2026-11-24"
+},
+{
+"title": "Nihonbashi: Morning View",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "c. 1833–34",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Nihonbashi, the “Bridge of Japan” in Edo, was the starting point of the Tōkaidō road. A lord’s procession sets out at dawn, and the series follows the journey for 53 stations to Kyoto.",
+"alias": [
+"nihonbashi",
+"nihonbashi morning view",
+"morning view of nihonbashi",
+"nihon bridge"
+],
+"img": "21d5",
+"added": "2026-11-24"
+},
+{
+"title": "Kambara: Night Snow",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "c. 1833–34",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Kambara is a mild coastal town where deep snow almost never falls, so this famous winter scene may be largely Hiroshige’s invention.",
+"alias": [
+"kambara night snow",
+"kanbara night snow",
+"night snow at kambara",
+"evening snow at kanbara",
+"kambara"
+],
+"img": "8856",
+"added": "2026-11-24"
+},
+{
+"title": "Mishima: Morning Mist",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "c. 1833–34",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Hiroshige printed the background figures and the shrine gate as pale gray shapes without outlines, so they seem to fade into the mist.",
+"alias": [
+"mishima morning mist",
+"mishima",
+"morning mist at mishima"
+],
+"img": "78ac",
+"added": "2026-11-24"
+},
+{
+"title": "Whirlpools at Naruto in Awa Province",
+"artist": "Utagawa Hiroshige",
+"life": "Japanese, 1797–1858",
+"date": "1855",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "The whirlpools form in the narrow Naruto Strait, between the islands of Shikoku and Awaji, when the tide rushes through.",
+"alias": [
+"whirlpools at naruto",
+"naruto whirlpools",
+"awa province naruto whirlpools",
+"the naruto rapids",
+"naruto"
+],
+"img": "86f2",
+"added": "2026-11-24"
+},
+{
+"title": "Three Beauties of the Present Day",
+"artist": "Kitagawa Utamaro",
+"life": "Japanese, c. 1753–1806",
+"date": "c. 1792–93",
+"medium": "Color woodblock print",
+"cats": [
+"japanese"
+],
+"fact": "The three women were celebrities of 1790s Edo: a geisha and two teahouse waitresses. Each is identified by the family crest on her robe.",
+"alias": [
+"three beauties of the present day",
+"three beauties",
+"three beauties of the kansei era",
+"toji san bijin"
+],
+"img": "0c8b",
+"added": "2026-11-24"
+},
+{
+"title": "Young Woman Blowing a Popen",
+"artist": "Kitagawa Utamaro",
+"life": "Japanese, c. 1753–1806",
+"date": "c. 1792–93",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "A popen, or poppin, is a glass toy with a thin bottom that clicks in and out when you blow into it. The series claimed to reveal women’s characters from their faces.",
+"alias": [
+"young woman blowing a popen",
+"young woman blowing a poppin",
+"woman blowing a poppin",
+"poppin",
+"popen",
+"girl blowing a glass toy"
+],
+"img": "13d1",
+"added": "2026-11-24"
+},
+{
+"title": "Ōtani Oniji III as Yakko Edobei",
+"artist": "Tōshūsai Sharaku",
+"life": "Japanese, active 1794–95",
+"date": "1794",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "The kabuki actor plays a villain about to grab money from a passerby. Sharaku made about 140 actor prints in roughly ten months, then vanished.",
+"alias": [
+"otani oniji iii as yakko edobei",
+"otani oniji",
+"oniji",
+"yakko edobei",
+"kabuki actor"
+],
+"img": "4e4c",
+"added": "2026-11-24"
+},
+{
+"title": "Girl Viewing Plum Blossoms at Night",
+"artist": "Suzuki Harunobu",
+"life": "Japanese, c. 1725–1770",
+"date": "c. 1766",
+"medium": "Color woodblock print",
+"museum": "The Metropolitan Museum of Art",
+"cats": [
+"japanese"
+],
+"fact": "Harunobu helped invent full-color woodblock printing in the 1760s. The solid black night sky makes the white blossoms and the girl’s lantern stand out.",
+"alias": [
+"girl viewing plum blossoms at night",
+"viewing plum blossoms at night",
+"plum blossoms at night",
+"girl with a lantern"
+],
+"img": "fcb0",
+"added": "2026-11-24"
 }
 ];
 
@@ -4631,7 +4997,7 @@ function render(){
 
   if(!r.done){
     const pts=available();
-    document.querySelector(".prompt").innerHTML=`What is this painting? <em>${pts.toLocaleString()} pts</em> if you get it now.`;
+    document.querySelector(".prompt").innerHTML=`What is this ${/woodblock/i.test(cur().medium)?"print":"painting"}? <em>${pts.toLocaleString()} pts</em> if you get it now.`;
     $("hintBtn").disabled=r.hint;
     $("choicesBtn").disabled=!!r.choices;
     $("sharpenBtn").textContent = r.stage>=STAGES.length-1 ? "Give up" : "Sharpen it";
